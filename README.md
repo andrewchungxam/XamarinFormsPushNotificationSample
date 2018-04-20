@@ -14,6 +14,8 @@ This Push notification sample is inspired by and based on projects by my colleag
 Rob DeRosa https://github.com/rob-derosa/Hunt <br >
 Mahdi https://github.com/malirezai/Xamarin-Forms-Push-Notifications-Sample <br >
 Rene https://github.com/Krumelur/XamUAzureNotificationHub and video https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/push-notifications/azure
+<br >
+<br >
 
 MIT License
 
