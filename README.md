@@ -1,7 +1,16 @@
 # XamarinFormsPushNotificationSample
 XamarinFormsPushNotificationSample
 
-Push notification sample based on projects by my colleagues: <br >
+Branches were made and kept for checkpoints in project:<br >
+Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications) <br >
+Branch 2 - Xamarin Forms app (iOS only + receiving push notifications + Functions to register devices + triggering  notifications) <br >
+
+
+<br >
+<br >
+<br >
+<br >
+This Push notification sample is inspired by and based on projects by my colleagues: <br >
 Rob DeRosa https://github.com/rob-derosa/Hunt <br >
 Mahdi https://github.com/malirezai/Xamarin-Forms-Push-Notifications-Sample <br >
 Rene https://github.com/Krumelur/XamUAzureNotificationHub and video https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/push-notifications/azure
