@@ -69,12 +69,6 @@ namespace pushsample
                 }
             };
 
-            //Content = new StackLayout
-            //{
-            //    Children = {
-            //        new Label { Text = "Hello ContentPage" }
-            //    }
-            //};
         }
 
 		protected override void OnAppearing()
@@ -104,6 +98,7 @@ namespace pushsample
         {
             Debug.WriteLine($"Sending message: " + txtMsg.Text);
 
+            //This will be for the sending and triggering of notifications
             //var content = new StringContent("\"" + txtMsg.Text + "\"", Encoding.UTF8, "application/json");
             //var result = await _client.PostAsync("xamunotifications", content);
             //Debug.WriteLine("Send result: " + result.IsSuccessStatusCode);

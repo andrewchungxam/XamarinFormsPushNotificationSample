@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Foundation;
+using System.Collections.Generic;
+
 using UIKit;
-using UserNotifications;
+using Foundation;
 
 using Xamarin.Forms;
-
-using System.Threading.Tasks;
 using UserNotifications;
-
 
 using Newtonsoft.Json.Linq;
 
 //using Microsoft.WindowsAzure.MobileServices;
-
 
 namespace pushsample.iOS
 {
@@ -114,6 +110,7 @@ namespace pushsample.iOS
                 {"body", templateBodyAPNS}
             };
 
+            //This will be replaced with a Function calling into a NotificationHub
             //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
             //await client.GetPush().RegisterAsync(deviceToken, templates);
         }
@@ -154,8 +151,5 @@ namespace pushsample.iOS
 
             MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, msg);
         }
-
-
-
     }
 }
