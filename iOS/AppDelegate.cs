@@ -113,6 +113,9 @@ namespace pushsample.iOS
             //This will be replaced with a Function calling into a NotificationHub
             //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
             //await client.GetPush().RegisterAsync(deviceToken, templates);
+
+
+
         }
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)

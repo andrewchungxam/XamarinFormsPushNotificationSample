@@ -14,6 +14,7 @@ namespace pushsample
 
         public PushPage()
         {
+            Title = "Branch 1";
 
             //TOP STACKLAYOUT
             var messageRecievedLabel = new Label() 
