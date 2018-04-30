@@ -10,14 +10,17 @@ using Xamarin.Forms;
 using UserNotifications;
 
 using Newtonsoft.Json.Linq;
+using WindowsAzure.Messaging;
 
-//using Microsoft.WindowsAzure.MobileServices;
 
 namespace pushsample.iOS
 {
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+
+        private SBNotificationHub Hub { get; set; }
+
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
@@ -78,6 +81,11 @@ namespace pushsample.iOS
                 }
 
                 UIApplication.SharedApplication.RegisterForRemoteNotifications();
+
+                //VIA DOCS
+                UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
+                UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
+
             }
             else
             {
@@ -110,6 +118,24 @@ namespace pushsample.iOS
                 {"body", templateBodyAPNS}
             };
 
+
+            Hub = new SBNotificationHub(App.ConnectionString, App.NotificationHubName);
+
+            Hub.UnregisterAllAsync(deviceToken, (error) => {
+                if (error != null)
+                {
+                    Console.WriteLine("Error calling Unregister: {0}", error.ToString());
+                    return;
+                }
+
+                NSSet tags = null; // create tags if you want
+                Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
+                    if (errorCallback != null)
+                        Console.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
+                });
+            });
+
+
             //This will be replaced with a Function calling into a NotificationHub
             //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
             //await client.GetPush().RegisterAsync(deviceToken, templates);
@@ -129,27 +155,82 @@ namespace pushsample.iOS
             // However, it will not display a notification visually if the app is in the foreground.
 
             PresentNotification(userInfo);
+            //ProcessNotification(userInfo, false);
 
             completionHandler(UIBackgroundFetchResult.NoData);
         }
 
         void PresentNotification(NSDictionary dict)
         {
-            // Extract some data from the notifiation and display it using an alert view.
-            NSDictionary aps = dict.ObjectForKey(new NSString("aps")) as NSDictionary;
-
-            var msg = string.Empty;
-            if (aps.ContainsKey(new NSString("alert")))
+            // Check to see if the dictionary has the aps key.  This is the notification payload you would have sent
+            if (null != dict && dict.ContainsKey(new NSString("aps")))
             {
-                msg = (aps[new NSString("alert")] as NSString).ToString();
-            }
+                // Extract some data from the notifiation and display it using an alert view.
+                NSDictionary aps = dict.ObjectForKey(new NSString("aps")) as NSDictionary;
 
-            if (string.IsNullOrEmpty(msg))
-            {
-                msg = "(unable to parse)";
-            }
+                var msg = string.Empty;
+                if (aps.ContainsKey(new NSString("alert")))
+                {
+                    msg = (aps[new NSString("alert")] as NSString).ToString();
+                }
 
-            MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, msg);
+                if (string.IsNullOrEmpty(msg))
+                {
+                    msg = "(unable to parse)";
+                }
+
+                MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, msg);
+            }
         }
+
+        //void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
+        //{
+        //    // Check to see if the dictionary has the aps key.  This is the notification payload you would have sent
+        //    if (null != options && options.ContainsKey(new NSString("aps")))
+        //    {
+        //        //Get the aps dictionary
+        //        NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
+
+        //        string alert = string.Empty;
+
+        //        //Extract the alert text
+        //        // NOTE: If you're using the simple alert by just specifying
+        //        // "  aps:{alert:"alert msg here"}  ", this will work fine.
+        //        // But if you're using a complex alert with Localization keys, etc.,
+        //        // your "alert" object from the aps dictionary will be another NSDictionary.
+        //        // Basically the JSON gets dumped right into a NSDictionary,
+        //        // so keep that in mind.
+        //        if (aps.ContainsKey(new NSString("alert")))
+        //            alert = (aps[new NSString("alert")] as NSString).ToString();
+
+        //        //If this came from the ReceivedRemoteNotification while the app was running,
+        //        // we of course need to manually process things like the sound, badge, and alert.
+        //        if (!fromFinishedLaunching)
+        //        {
+        //            //Manually show an alert
+        //            if (!string.IsNullOrEmpty(alert))
+        //            {
+        //                UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
+        //                avAlert.Show();
+        //            }
+        //        }
+        //    }
+
+        //    NSDictionary aps1 = options.ObjectForKey(new NSString("aps")) as NSDictionary;
+
+        //    var msg = string.Empty;
+        //    if (aps1.ContainsKey(new NSString("alert")))
+        //    {
+        //        msg = (aps1[new NSString("alert")] as NSString).ToString();
+        //    }
+
+        //    if (string.IsNullOrEmpty(msg))
+        //    {
+        //        msg = "(unable to parse)";
+        //    }
+
+        //    MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, msg);
+
+        //}
     }
 }
