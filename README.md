@@ -3,6 +3,7 @@ XamarinFormsPushNotificationSample
 
 Branches were made and kept for checkpoints in project:<br ><br >
 Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications) <br >
+Branch 2 - Xamarin Forms apps (iOS only + receiving push notifications + registered with Azure Notification Hub directly from app) <br >
 Branch 2 - Xamarin Forms app (iOS only + receiving push notifications + Functions to register devices + triggering  notifications via button press) <br >
 
 
