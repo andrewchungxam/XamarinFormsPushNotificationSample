@@ -3,8 +3,9 @@
 In this repo - you'll find two PDFs that are step-by-step walk throughs of the project.
 
 Branches were made and kept for checkpoints in project:<br ><br >
-Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications) | Test with Pusher <br >
-Branch 2 - Xamarin Forms apps (iOS only + receiving push notifications + registered with Azure Notification Hub directly from app) | Test with Pusher or from Test Notifications Sent from Azure Portal <br >
+Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications) | Test with Pusher | Use with PDF called "Notification Hub - Part 1" <br >
+
+Branch 2 - Xamarin Forms apps (iOS only + receiving push notifications + registered with Azure Notification Hub directly from app) | Test with Pusher or from Test Notifications Sent from Azure Portal | Use with PDF called "Notification Hub - Part 2"<br >
 <br ><br ><br >
 
 
