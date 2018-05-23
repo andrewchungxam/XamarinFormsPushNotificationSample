@@ -11,7 +11,7 @@ Branch 3 - Branch 2 + Ability to create specialized Notification Tags ("Similar 
 <br >
 <br >
 <br >
-Branch 3 - Xamarin Forms app (iOS only + receiving push notifications + Functions to register devices + triggering  notifications via button press) <br >
+Branch 4 - Xamarin Forms app (iOS only + receiving push notifications + Functions to register devices + triggering  notifications via button press) <br >
 
 
 <br >
