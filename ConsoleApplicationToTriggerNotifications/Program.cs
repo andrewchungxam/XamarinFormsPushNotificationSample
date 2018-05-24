@@ -10,9 +10,10 @@ namespace pushsample
     {
         public static void Main(string[] args)
         {
-            //SendTemplateNotificationAsyncNativeApple();
-            //SendTemplateNotificationAsync();
-            SendTemplateNotificationMultipleAsync();
+
+            //SendTemplateNotificationAsyncNativeApple();  //(native registration only)
+            //SendTemplateNotificationAsync(); //(Template registration only)
+            SendTemplateNotificationMultipleAsync(); //Tempalte registration only)
 
             System.Threading.Thread.Sleep(30000);  //MAKE SURE TO PAUSE PROGRAM SO NOTIFICATION CAN BE SENT!
             Console.WriteLine("Hello World!");
@@ -20,6 +21,11 @@ namespace pushsample
 
         private static async void SendTemplateNotificationAsyncNativeApple()
         {
+            //
+            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A NATIVE REGISTRATION
+            //
+
+
             NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                 (
                     AzureConstants.ConsoleApplicationFullAccessConnectionString,
@@ -37,6 +43,11 @@ namespace pushsample
 
         private static async void SendTemplateNotificationAsync()
         {
+
+            //
+            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A TEMPLATE REGISTRATION
+            //
+
             NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                 (
                     AzureConstants.ConsoleApplicationFullAccessConnectionString,
@@ -56,6 +67,11 @@ namespace pushsample
 
         private static async void SendTemplateNotificationMultipleAsync()
         {
+            //
+            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A TEMPLATE REGISTRATION
+            //
+
+
             NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                 (
                     AzureConstants.ConsoleApplicationFullAccessConnectionString,
