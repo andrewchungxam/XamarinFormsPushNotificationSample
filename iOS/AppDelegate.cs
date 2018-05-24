@@ -128,10 +128,21 @@ namespace pushsample.iOS
                     return;
                 }
 
-                NSSet tags = null; // create tags if you want
-                Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
+                //NSSet tags = null; // create tags if you want
+
+                NSSet tags = new NSSet("World", "Politics", "Business", "Technology","Science","Sports");
+
+                //NATIVE REGISTRATION
+                //Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
+                //    if (errorCallback != null)
+                //        Console.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
+                //});
+
+                //TEMPLATE REGISTRATION
+                Hub.RegisterTemplateAsync(deviceToken, templateBodyAPNS, templateBodyAPNS, "0", tags, (errorCallback) =>
+                {
                     if (errorCallback != null)
-                        Console.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
+                        Console.WriteLine("RegisterTemplateAsync error: " + errorCallback.ToString());
                 });
             });
 
