@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.NotificationHubs;
-using ConsoleApplicationToTriggerNotifications;
+
+using AzureConstants;
 
 namespace pushsample
 {
@@ -28,8 +29,8 @@ namespace pushsample
 
             NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                 (
-                    AzureConstants.ConsoleApplicationFullAccessConnectionString,
-                    AzureConstants.ConsoleApplicationNotificationHubName,
+                    AzureConstants.AzureConstants.ConsoleApplicationFullAccessConnectionString,
+                    AzureConstants.AzureConstants.ConsoleApplicationNotificationHubName,
                     true
                 );
             // Create an array of breaking news categories.
@@ -50,8 +51,8 @@ namespace pushsample
 
             NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                 (
-                    AzureConstants.ConsoleApplicationFullAccessConnectionString,
-                    AzureConstants.ConsoleApplicationNotificationHubName,
+                    AzureConstants.AzureConstants.ConsoleApplicationFullAccessConnectionString,
+                    AzureConstants.AzureConstants.ConsoleApplicationNotificationHubName,
                     true
                 );
             // Create an array of breaking news categories.
@@ -74,8 +75,8 @@ namespace pushsample
 
             NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                 (
-                    AzureConstants.ConsoleApplicationFullAccessConnectionString,
-                    AzureConstants.ConsoleApplicationNotificationHubName,
+                    AzureConstants.AzureConstants.ConsoleApplicationFullAccessConnectionString,
+                    AzureConstants.AzureConstants.ConsoleApplicationNotificationHubName,
                     true
                 );
             // Create an array of breaking news categories.

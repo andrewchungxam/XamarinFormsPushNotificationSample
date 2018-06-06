@@ -9,4 +9,6 @@
     <PackageReference Include="Microsoft.Azure.NotificationHubs" Version="2.0.0-preview2" />
   </ItemGroup>
 
+  <Import Project="..\AzureConstants\AzureConstants.projitems" Label="Shared" />
+
 </Project>
