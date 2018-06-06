@@ -12,9 +12,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApplicationToTrigger
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSampleWebAPIBackend", "PushSampleWebAPIBackend\PushSampleWebAPIBackend.csproj", "{EF645484-5694-4603-BE26-8E5201F1DD27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationViaFunction", "NotificationViaFunction\NotificationViaFunction.csproj", "{61C69CE7-2C11-49AE-84B4-B4D369457A9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationViaFunction", "NotificationViaFunction\NotificationViaFunction.csproj", "{61C69CE7-2C11-49AE-84B4-B4D369457A9D}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AzureConstants", "AzureConstants\AzureConstants.shproj", "{CDDC8BEB-51A0-4CB4-865B-564A7CF44F70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationRegistration", "NotificationRegistration\NotificationRegistration.csproj", "{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -92,6 +94,18 @@ Global
 		{61C69CE7-2C11-49AE-84B4-B4D369457A9D}.Release|iPhone.Build.0 = Release|Any CPU
 		{61C69CE7-2C11-49AE-84B4-B4D369457A9D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{61C69CE7-2C11-49AE-84B4-B4D369457A9D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Release|iPhone.Build.0 = Release|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
