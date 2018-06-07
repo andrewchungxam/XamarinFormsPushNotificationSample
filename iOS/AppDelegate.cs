@@ -52,9 +52,6 @@ namespace pushsample.iOS
             _launchOptions = null;
         }
 
-
-
-
         async Task RequestPushPermissionAsync()
         {
             // iOS10 and later (https://developer.xamarin.com/guides/ios/platform_features/user-notifications/enhanced-user-notifications/#Preparing_for_Notification_Delivery)
@@ -117,26 +114,30 @@ namespace pushsample.iOS
             // that will be replaced by our service.
             const string templateBodyAPNS = "{\"aps\":{\"alert\":\"$(messageParam)\"}}";
 
+            NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
+
+            await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, tags);
+
             var templates = new JObject();
             templates["genericMessage"] = new JObject
             {
                 {"body", templateBodyAPNS}
             };
 
+            //await TemplateRegisterWithAzureNotificationHubRegistration(deviceToken, tags, templates);
 
-            Hub = new SBNotificationHub(App.ConnectionString, App.NotificationHubName);
+            //Hub = new SBNotificationHub(App.ConnectionString, App.NotificationHubName);
 
-            Hub.UnregisterAllAsync(deviceToken, (error) =>
-            {
-                if (error != null)
-                {
-                    Console.WriteLine("Error calling Unregister: {0}", error.ToString());
-                    return;
-                }
+            //Hub.UnregisterAllAsync(deviceToken, (error) =>
+            //{
+                //if (error != null)
+                //{
+                //    Console.WriteLine("Error calling Unregister: {0}", error.ToString());
+                //    return;
+                //}
 
                 //NSSet tags = null; // create tags if you want
 
-                NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
 
                 //NATIVE REGISTRATION
                 //Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
@@ -144,17 +145,17 @@ namespace pushsample.iOS
                 //        Console.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
                 //});
 
-                //TEMPLATE REGISTRATION
-                Hub.RegisterTemplateAsync(deviceToken, templateBodyAPNS, templateBodyAPNS, "0", tags, (errorCallback) =>
-                {
-                    if (errorCallback != null)
-                        Console.WriteLine("RegisterTemplateAsync error: " + errorCallback.ToString());
-                });
+                ////TEMPLATE REGISTRATION
+                //Hub.RegisterTemplateAsync(deviceToken, templateBodyAPNS, templateBodyAPNS, "0", tags, (errorCallback) =>
+                //{
+                //    if (errorCallback != null)
+                //        Console.WriteLine("RegisterTemplateAsync error: " + errorCallback.ToString());
+                //});
 
                 //This will be replaced with a Function calling into a NotificationHub
                 //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
                 //await client.GetPush().RegisterAsync(deviceToken, templates);
-            });
+            //});
 
             //var myHttpClient = new HttpClient();
             //var stringPayload = JsonConvert.SerializeObject(deviceToken);
@@ -239,15 +240,33 @@ namespace pushsample.iOS
             //--RETURN SUCCESS OR FAILURE
         }
 
+        public class DeviceRegistration
+        {
+            public string Platform { get; set; }
+            public NSData Handle { get; set; }
+            public NSSet Tags { get; set; }
+        }
+
         public async Task<HttpResponseMessage> 
-            RegisterWithAzureNotificationHubNativeRegistration(NSData deviceToken, NSSet setOfTags)
+            NativeRegisterWithAzureNotificationHubRegistration(NSData deviceToken, NSSet setOfTags)
         {
             var myHttpClient = new HttpClient();
             string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-            string MyApiURL = String.Format("relevantAPI/{0}", deviceTokenString); 
+            string MyApiURL = String.Format("relevantAPI/{0}", deviceTokenString);
 
-            var serializedTags = JsonConvert.SerializeObject(setOfTags);
-            var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
+            //var serializedTags = JsonConvert.SerializeObject(setOfTags);
+            //var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
+
+            var _deviceRegistration = new DeviceRegistration() 
+            { 
+                Platform = "apns",
+                Handle = deviceToken,
+                Tags = setOfTags
+            };
+
+            var serializedDeviceRegistration = JsonConvert.SerializeObject(_deviceRegistration);
+            //var httpContent = new StringContent(_deviceRegistration, Encoding.UTF8, "application/json");
+            var httpContent = new StringContent(serializedDeviceRegistration, Encoding.UTF8, "application/json");
 
             var httpRequest = new HttpRequestMessage
             {
