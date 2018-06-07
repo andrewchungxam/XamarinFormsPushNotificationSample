@@ -11,7 +11,11 @@ using UserNotifications;
 
 using Newtonsoft.Json.Linq;
 using WindowsAzure.Messaging;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
+using System.Runtime;
 
 namespace pushsample.iOS
 {
@@ -103,6 +107,7 @@ namespace pushsample.iOS
             }
 
             Console.WriteLine($"Token received: {deviceToken}");
+
             await SendRegistrationToServerAsync(deviceToken);
         }
 
@@ -121,7 +126,8 @@ namespace pushsample.iOS
 
             Hub = new SBNotificationHub(App.ConnectionString, App.NotificationHubName);
 
-            Hub.UnregisterAllAsync(deviceToken, (error) => {
+            Hub.UnregisterAllAsync(deviceToken, (error) =>
+            {
                 if (error != null)
                 {
                     Console.WriteLine("Error calling Unregister: {0}", error.ToString());
@@ -130,7 +136,7 @@ namespace pushsample.iOS
 
                 //NSSet tags = null; // create tags if you want
 
-                NSSet tags = new NSSet("World", "Politics", "Business", "Technology","Science","Sports");
+                NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
 
                 //NATIVE REGISTRATION
                 //Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
@@ -144,12 +150,130 @@ namespace pushsample.iOS
                     if (errorCallback != null)
                         Console.WriteLine("RegisterTemplateAsync error: " + errorCallback.ToString());
                 });
+
+                //This will be replaced with a Function calling into a NotificationHub
+                //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
+                //await client.GetPush().RegisterAsync(deviceToken, templates);
             });
 
+            //var myHttpClient = new HttpClient();
+            //var stringPayload = JsonConvert.SerializeObject(deviceToken);
+            //var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
-            //This will be replaced with a Function calling into a NotificationHub
-            //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
-            //await client.GetPush().RegisterAsync(deviceToken, templates);
+            //var httpRequest = new HttpRequestMessage
+            //{
+            //    Method = new HttpMethod("PUT"),
+            //    RequestUri = new Uri(apiUrl),
+            //    Content = httpContent
+            //};
+
+            //try
+            //{
+            //    //UpdateActivityIndicatorStatus(true);
+
+            //    return await myHttpClient.SendAsync(httpRequest).ConfigureAwait(false);
+            //}
+            //catch (Exception e)
+            //{
+            //    //AppCenterHelpers.LogException(e);
+            //    return null;
+            //}
+            //finally
+            //{
+            //    //UpdateActivityIndicatorStatus(false);
+            //}
+
+            //CREATE HTTP CLIENT
+
+            //protected static async Task<double> GetAllCosmosPrayerRequests(string apiUrl)
+            //{
+            //SIMPLIFIED FORM CREATING NEW HTTP CLIENT
+            //var myHttpClient = new HttpClient();
+            //string clientString = await myHttpClient.GetStringAsync(apiUrl).ConfigureAwait(false);
+            //var deserializedListOfCosmosDBPrayerRequests = JsonConvert.DeserializeObject<List<CosmosDBPrayerRequest>>(clientString);
+            //return deserializedListOfCosmosDBPrayerRequests;
+            //}
+
+            //protected static async Task<HttpResponseMessage> PutCosmosPrayerRequestByAsync(string apiUrl, CosmosDBPrayerRequest data)
+            //{
+
+
+            //var stringPayload = await Task.Run(() => JsonConvert.SerializeObject(deviceToken)).ConfigureAwait(false);
+            //var stringPayload = JsonConvert.SerializeObject(deviceToken);
+            //var myStringContent = new StringContent("content");
+            //var myStringContent = new StringContent("content", Encoding.UTF8, "application/json");
+
+            ////var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+
+                //var httpRequest = new HttpRequestMessage
+                //{
+                //    Method = new HttpMethod("PUT"),
+                //    RequestUri = new Uri(apiUrl),
+                //    Content = httpContent
+                //};
+
+                //try
+                //{
+                //    UpdateActivityIndicatorStatus(true);
+
+                //    return await Client.SendAsync(httpRequest).ConfigureAwait(false);
+                //}
+                //catch (Exception e)
+                //{
+                //    //AppCenterHelpers.LogException(e);
+                //    return null;
+                //}
+                //finally
+                //{
+                //    UpdateActivityIndicatorStatus(false);
+                //}
+            //}
+
+
+
+            //CALL FUNCTION1 (PASSING HANDLE AND TAGS) AND INCLUDE "CLEANED" (NO SPACES ALL UPPER CASE) DEVICE TOKEN
+
+            //FUNCTION1
+            //--WILL (DELETE EXISTING REGISTRATIONS WITH SAME HANDLE) -- 
+            //--CREATE A REGISTRATION WITH REGISTRATION ID + TAG + (NATIVE VS. TAG BASED)
+            //--RETURN SUCCESS OR FAILURE
+        }
+
+        public async Task<HttpResponseMessage> 
+            RegisterWithAzureNotificationHubNativeRegistration(NSData deviceToken, NSSet setOfTags)
+        {
+            var myHttpClient = new HttpClient();
+            string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
+            string MyApiURL = String.Format("relevantAPI/{0}", deviceTokenString); 
+
+            var serializedTags = JsonConvert.SerializeObject(setOfTags);
+            var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
+
+            var httpRequest = new HttpRequestMessage
+            {
+                Method = new HttpMethod("PUT"),
+                RequestUri = new Uri(MyApiURL),
+                Content = httpContent
+            };
+
+            try
+            {
+                //UpdateActivityIndicatorStatus(true);
+                return await myHttpClient.SendAsync(httpRequest).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                //AppCenterHelpers.LogException(e);
+                return null;
+            }
+            finally
+            {
+                //UpdateActivityIndicatorStatus(false);
+            }
+
+//            YOU WANT TO ADD TAGS
+//            var stringPayload = JsonConvert.SerializeObject(deviceToken);
+//            var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
         }
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
