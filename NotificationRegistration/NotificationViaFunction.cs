@@ -72,7 +72,7 @@ namespace NotificationRegistration
         );
 
         [FunctionName("NativeRegistrationWithTags")]
-        public static async Task<HttpResponseMessage> RunNativeRegistrationWithTags([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "api/GetRegistrationIdPassingHandle/{handleString}")]HttpRequestMessage req, string handleString, TraceWriter log)
+        public static async Task<HttpResponseMessage> RunNativeRegistrationWithTags([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "GetRegistrationIdPassingHandle/{handleString}")]HttpRequestMessage req, string handleString, TraceWriter log)
         {
             string newRegistrationId = null;
 
@@ -137,8 +137,8 @@ namespace NotificationRegistration
             //var username = HttpContext.Current.User.Identity.Name;
 
             ////add check if user is allowed to add these tags
-            //registration.Tags = new HashSet<string>(deviceUpdate.Tags);
-            //registration.Tags.Add("username:" + username);
+            registration.Tags = new HashSet<string>(deviceUpdate.Tags);
+            registration.Tags.Add("username:" + "friendlyUser101");
 
             try
             {
