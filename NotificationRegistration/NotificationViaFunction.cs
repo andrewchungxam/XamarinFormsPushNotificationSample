@@ -69,7 +69,12 @@ namespace NotificationRegistration
             public string Platform { get; set; }
             public string Handle { get; set; } //NSData
             public string[] Tags { get; set; } //NSSet
-            public string Templates { get; set; }
+            public string jsonBodyTemplates { get; set; }
+            public string expiryTemplate { get; set; }
+            public string name { get; set; }
+
+
+
         }
 
         private static NotificationHubClient _notificationHubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
@@ -175,6 +180,9 @@ namespace NotificationRegistration
             // RegistrationMotion(registrationId, deviceRegistrationObject);
             //but do this at end
 
+            deviceRegistrationObjectWithTemplate.name = "name";
+            deviceRegistrationObjectWithTemplate.expiryTemplate = "0";
+
             //make sure there are no existing registrations for this push handle(used for ios and android)
             if (handleString != null)
             {
@@ -182,60 +190,60 @@ namespace NotificationRegistration
 
                 foreach (RegistrationDescription registration in registrations)
                 {
-                    if (newRegistrationId == null)
-                    {
-                        newRegistrationId = registration.RegistrationId;
-                    }
-                    else
-                    {
+                    //if (newRegistrationId == null)
+                    //{
+                    //    newRegistrationId = registration.RegistrationId;
+                    //}
+                    //else
+                    //{
                         await _notificationHubClient.DeleteRegistrationAsync(registration);
-                    }
+                    //}
                 }
             }
 
-            if (newRegistrationId == null)
-                newRegistrationId = await _notificationHubClient.CreateRegistrationIdAsync();
+            //if (newRegistrationId == null)
+            //    newRegistrationId = await _notificationHubClient.CreateRegistrationIdAsync();
 
-            await TemplateRegistrationMotion(newRegistrationId, deviceRegistrationObjectWithTemplate);
+            // await TemplateRegistrationMotion(newRegistrationId, deviceRegistrationObjectWithTemplate);
+            await TemplateRegistrationMotion(deviceRegistrationObjectWithTemplate);
 
             return req.CreateResponse(System.Net.HttpStatusCode.OK, newRegistrationId);
         }
 
 
-        public static async Task<HttpResponseMessage> TemplateRegistrationMotion(string notificationHubRegistrationId, DeviceRegistrationWithTemplate deviceUpdate)
-        {
-            RegistrationDescription registration = null;
-            switch (deviceUpdate.Platform)
-            {
-                case "mpns":
-                    registration = new MpnsRegistrationDescription(deviceUpdate.Handle);
-                    break;
-                case "wns":
-                    registration = new WindowsRegistrationDescription(deviceUpdate.Handle);
-                    break;
-                case "apns":
-                    registration = new AppleRegistrationDescription(deviceUpdate.Handle);
-                    break;
-                case "gcm":
-                    registration = new GcmRegistrationDescription(deviceUpdate.Handle);
-                    break;
-                default:
-                    throw new HttpResponseException(HttpStatusCode.BadRequest);
-            }
+        public static async Task<HttpResponseMessage> TemplateRegistrationMotion(DeviceRegistrationWithTemplate deviceUpdate)
+        {//
+         //   RegistrationDescription registration = null;
+         //switch (deviceUpdate.Platform)
+         //{
+         //    case "mpns":
+         //        registration = new MpnsRegistrationDescription(deviceUpdate.Handle);
+         //        break;
+         //    case "wns":
+         //        registration = new WindowsRegistrationDescription(deviceUpdate.Handle);
+         //        break;
+         //    case "apns":
+         //        registration = new AppleRegistrationDescription(deviceUpdate.Handle);
+         //        break;
+         //    case "gcm":
+         //        registration = new GcmRegistrationDescription(deviceUpdate.Handle);
+         //        break;
+         //    default:
+         //        throw new HttpResponseException(HttpStatusCode.BadRequest);
+         //}
 
-            registration.RegistrationId = notificationHubRegistrationId;
+            // registration.RegistrationId = notificationHubRegistrationId;
 
             //var username = HttpContext.Current.User.Identity.Name;
 
             ////add check if user is allowed to add these tags
-            registration.Tags = new HashSet<string>(deviceUpdate.Tags);
-            registration.Tags.Add("username:" + "friendlyUser101");
+            //registration.Tags = new HashSet<string>(deviceUpdate.Tags);
+            //registration.Tags.Add("username:" + "friendlyUser101");
 
             try
             {
-                await _notificationHubClient.CreateOrUpdateRegistrationAsync(registration);
-                //Hub.RegisterTemplateAsync(deviceToken, templateBodyAPNS, templateBodyAPNS, "0", tags, (errorCallback) =>
-
+                //await _notificationHubClient.CreateOrUpdateRegistrationAsync(registration);
+                await _notificationHubClient.CreateAppleTemplateRegistrationAsync(deviceUpdate.Handle, deviceUpdate.jsonBodyTemplates, deviceUpdate.Tags);
             }
             catch (MessagingException e)
             {
@@ -349,59 +357,59 @@ namespace NotificationRegistration
 
 
 
-            ////PUT api/register/5
-            ////This creates or updates a registration (with provided channeURI) at the specified Id
-            //public async Task<HttpResponseMessage> Put(string id, DeviceRegistration deviceUpdate)
-            //{
-            //    RegistrationDescription registration = null;
-            //    switch (deviceUpdate.Platform)
-            //    {
-            //        case "mpns":
-            //            registration = new MpnsRegistrationDescription(deviceUpdate.Handle);
-            //            break;
-            //        case "wns":
-            //            registration = new WindowsRegistrationDescription(deviceUpdate.Handle);
-            //            break;
-            //        case "apns":
-            //            registration = new AppleRegistrationDescription(deviceUpdate.Handle);
-            //            break;
-            //        case "gcm":
-            //            registration = new GcmRegistrationDescription(deviceUpdate.Handle);
-            //            break;
-            //        default:
-            //            throw new HttpResponseException(HttpStatusCode.BadRequest);
-            //    }
+////PUT api/register/5
+////This creates or updates a registration (with provided channeURI) at the specified Id
+//public async Task<HttpResponseMessage> Put(string id, DeviceRegistration deviceUpdate)
+//{
+//    RegistrationDescription registration = null;
+//    switch (deviceUpdate.Platform)
+//    {
+//        case "mpns":
+//            registration = new MpnsRegistrationDescription(deviceUpdate.Handle);
+//            break;
+//        case "wns":
+//            registration = new WindowsRegistrationDescription(deviceUpdate.Handle);
+//            break;
+//        case "apns":
+//            registration = new AppleRegistrationDescription(deviceUpdate.Handle);
+//            break;
+//        case "gcm":
+//            registration = new GcmRegistrationDescription(deviceUpdate.Handle);
+//            break;
+//        default:
+//            throw new HttpResponseException(HttpStatusCode.BadRequest);
+//    }
 
-            //    registration.RegistrationId = id;
+//    registration.RegistrationId = id;
 
-            //    var username = HttpContext.Current.User.Identity.Name;
+//    var username = HttpContext.Current.User.Identity.Name;
 
-            //    //add check if user is allowed to add these tags
-            //    registration.Tags = new HashSet<string>(deviceUpdate.Tags);
-            //    registration.Tags.Add("username:" + username);
+//    //add check if user is allowed to add these tags
+//    registration.Tags = new HashSet<string>(deviceUpdate.Tags);
+//    registration.Tags.Add("username:" + username);
 
-            //    try
-            //    {
-            //        await hub.CreateOrUpdateRegistrationAsync(registration);
-            //    }
-            //    catch (MessagingException e)
-            //    {
-            //        ReturnGoneIfHubResponseIsGone(e);
-            //    }
+//    try
+//    {
+//        await hub.CreateOrUpdateRegistrationAsync(registration);
+//    }
+//    catch (MessagingException e)
+//    {
+//        ReturnGoneIfHubResponseIsGone(e);
+//    }
 
-            //    return Request.CreateResponse(HttpStatusCode.OK);
-            //}
+//    return Request.CreateResponse(HttpStatusCode.OK);
+//}
 
-            ////DELETE api/register/5
-            //public async Task<HttpResponseMessage> Delete(string id)
-            //{
-            //    await hub.DeleteRegistrationAsync(id);
-            //    return Request.CreateResponse(HttpStatusCode.OK);
-            //}
+////DELETE api/register/5
+//public async Task<HttpResponseMessage> Delete(string id)
+//{
+//    await hub.DeleteRegistrationAsync(id);
+//    return Request.CreateResponse(HttpStatusCode.OK);
+//}
 
 
-    //    }
-    //}
+//    }
+//}
 
 //    }
 //}
