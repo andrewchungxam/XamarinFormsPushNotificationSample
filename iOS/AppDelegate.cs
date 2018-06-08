@@ -113,8 +113,6 @@ namespace pushsample.iOS
         {
             // This is the template/payload used by iOS. It contains the "messageParam"
             // that will be replaced by our service.
-            const string templateBodyAPNS = "{\"aps\":{\"alert\":\"$(messageParam)\"}}";
-
 
             string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
@@ -271,7 +269,9 @@ namespace pushsample.iOS
             public string Platform { get; set; }
             public string Handle { get; set; } //NSData
             public string[] Tags { get; set; } //NSSet
-            public string Templates { get; set; }
+            public string name { get; set; }
+            public string jsonBodyTemplates { get; set; }
+            public string expiryTemplate { get; set; }
         }
 
         public async Task<HttpResponseMessage> 
@@ -345,7 +345,8 @@ namespace pushsample.iOS
         {
             var myHttpClient = new HttpClient();
             string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-            string MyApiURL = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetRegistrationIdPassingHandle/{0}", deviceTokenString);
+            //string MyApiURL = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetRegistrationIdPassingHandle/{0}", deviceTokenString);
+            string MyApiURLTemplate = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetTemplateRegistrationWithTags/{0}", deviceTokenString);
 
             //var serializedTags = JsonConvert.SerializeObject(setOfTags);
             //var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
@@ -369,7 +370,7 @@ namespace pushsample.iOS
                 //                Handle = deviceToken,
                 Handle = deviceTokenString,
                 Tags = setOfTags,
-                Templates = templates
+                jsonBodyTemplates = templates
             };
 
             var serializedDeviceRegistration = JsonConvert.SerializeObject(_deviceRegistration);
@@ -379,7 +380,7 @@ namespace pushsample.iOS
             var httpRequest = new HttpRequestMessage
             {
                 Method = new HttpMethod("POST"),
-                RequestUri = new Uri(MyApiURL),
+                RequestUri = new Uri(MyApiURLTemplate),
                 Content = httpContent
             };
 
