@@ -15,6 +15,9 @@ namespace NotificationViaFunction
 {
     public static class NotificationTriggerViaFunction
     {
+        //PLEASE AVOID PORT EXHAUSTION: 
+        //https://docs.microsoft.com/en-us/azure/azure-functions/manage-connections
+
         [FunctionName("NotificationTriggerViaFunction")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {

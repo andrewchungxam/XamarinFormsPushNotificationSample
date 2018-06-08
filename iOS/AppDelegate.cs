@@ -116,7 +116,10 @@ namespace pushsample.iOS
 
             NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
 
-            await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, tags);
+            string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports"};
+
+            //await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, tags);
+            await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags);
 
             var templates = new JObject();
             templates["genericMessage"] = new JObject
@@ -243,24 +246,38 @@ namespace pushsample.iOS
         public class DeviceRegistration
         {
             public string Platform { get; set; }
-            public NSData Handle { get; set; }
-            public NSSet Tags { get; set; }
+            public string Handle { get; set; } //NSData
+            public string[] Tags { get; set; } //NSSet
         }
 
         public async Task<HttpResponseMessage> 
-            NativeRegisterWithAzureNotificationHubRegistration(NSData deviceToken, NSSet setOfTags)
+            NativeRegisterWithAzureNotificationHubRegistration(NSData deviceToken, string[] setOfTags)
         {
             var myHttpClient = new HttpClient();
             string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-            string MyApiURL = String.Format("relevantAPI/{0}", deviceTokenString);
+            string MyApiURL = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetRegistrationIdPassingHandle/{0}", deviceTokenString);
 
             //var serializedTags = JsonConvert.SerializeObject(setOfTags);
             //var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
 
+            //int integerOfSetOfTags = setOfTags.Count();
+
+            //string[] setOfTagsStrings = new string[integerOfSetOfTags-1];
+
+            //for (int i = 0; i < integerOfSetOfTags-1; i++)
+            //{
+            //    setOfTagsString[i] = setOfTags[i].ToString();
+            //}
+
+            //foreach(var item in setOfTags)
+            //{
+            //}
+
             var _deviceRegistration = new DeviceRegistration() 
             { 
                 Platform = "apns",
-                Handle = deviceToken,
+//                Handle = deviceToken,
+                Handle=deviceTokenString,
                 Tags = setOfTags
             };
 
@@ -270,10 +287,12 @@ namespace pushsample.iOS
 
             var httpRequest = new HttpRequestMessage
             {
-                Method = new HttpMethod("PUT"),
+                Method = new HttpMethod("POST"),
                 RequestUri = new Uri(MyApiURL),
                 Content = httpContent
             };
+
+            Console.WriteLine("{0}", httpRequest.RequestUri.ToString());
 
             try
             {
@@ -283,6 +302,7 @@ namespace pushsample.iOS
             catch (Exception e)
             {
                 //AppCenterHelpers.LogException(e);
+                Console.WriteLine("Did not register");
                 return null;
             }
             finally
