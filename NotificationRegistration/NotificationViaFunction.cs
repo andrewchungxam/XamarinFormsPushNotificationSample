@@ -64,6 +64,14 @@ namespace NotificationRegistration
             public string[] Tags { get; set; }
         }
 
+        public class DeviceRegistrationWithTemplate
+        {
+            public string Platform { get; set; }
+            public string Handle { get; set; } //NSData
+            public string[] Tags { get; set; } //NSSet
+            public string Templates { get; set; }
+        }
+
         private static NotificationHubClient _notificationHubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
         (
             AzureConstants.AzureConstants.ConsoleApplicationFullAccessConnectionString,
@@ -152,6 +160,93 @@ namespace NotificationRegistration
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
             return responseMessage;
         }
+
+
+        [FunctionName("TemplateRegistrationWithTags")]
+        public static async Task<HttpResponseMessage> RunTemplateRegistrationWithTags([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "GetTemplateRegistrationWithTags/{handleString}")]HttpRequestMessage req, string handleString, TraceWriter log)
+        {
+            string newRegistrationId = null;
+
+            //get object from req.Content as String
+            var requestContentAsString = await req.Content.ReadAsStringAsync();
+            //Deserialize it
+            var deviceRegistrationObjectWithTemplate = Newtonsoft.Json.JsonConvert.DeserializeObject<DeviceRegistrationWithTemplate>(requestContentAsString);
+            //GRAB TAGS -> to pass to 
+            // RegistrationMotion(registrationId, deviceRegistrationObject);
+            //but do this at end
+
+            //make sure there are no existing registrations for this push handle(used for ios and android)
+            if (handleString != null)
+            {
+                var registrations = await _notificationHubClient.GetRegistrationsByChannelAsync(handleString, 100);
+
+                foreach (RegistrationDescription registration in registrations)
+                {
+                    if (newRegistrationId == null)
+                    {
+                        newRegistrationId = registration.RegistrationId;
+                    }
+                    else
+                    {
+                        await _notificationHubClient.DeleteRegistrationAsync(registration);
+                    }
+                }
+            }
+
+            if (newRegistrationId == null)
+                newRegistrationId = await _notificationHubClient.CreateRegistrationIdAsync();
+
+            await TemplateRegistrationMotion(newRegistrationId, deviceRegistrationObjectWithTemplate);
+
+            return req.CreateResponse(System.Net.HttpStatusCode.OK, newRegistrationId);
+        }
+
+
+        public static async Task<HttpResponseMessage> TemplateRegistrationMotion(string notificationHubRegistrationId, DeviceRegistrationWithTemplate deviceUpdate)
+        {
+            RegistrationDescription registration = null;
+            switch (deviceUpdate.Platform)
+            {
+                case "mpns":
+                    registration = new MpnsRegistrationDescription(deviceUpdate.Handle);
+                    break;
+                case "wns":
+                    registration = new WindowsRegistrationDescription(deviceUpdate.Handle);
+                    break;
+                case "apns":
+                    registration = new AppleRegistrationDescription(deviceUpdate.Handle);
+                    break;
+                case "gcm":
+                    registration = new GcmRegistrationDescription(deviceUpdate.Handle);
+                    break;
+                default:
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            registration.RegistrationId = notificationHubRegistrationId;
+
+            //var username = HttpContext.Current.User.Identity.Name;
+
+            ////add check if user is allowed to add these tags
+            registration.Tags = new HashSet<string>(deviceUpdate.Tags);
+            registration.Tags.Add("username:" + "friendlyUser101");
+
+            try
+            {
+                await _notificationHubClient.CreateOrUpdateRegistrationAsync(registration);
+                //Hub.RegisterTemplateAsync(deviceToken, templateBodyAPNS, templateBodyAPNS, "0", tags, (errorCallback) =>
+
+            }
+            catch (MessagingException e)
+            {
+                ReturnGoneIfHubResponseIsGone(e);
+            }
+
+            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+            return responseMessage;
+        }
+
+
 
         private static void ReturnGoneIfHubResponseIsGone(MessagingException e)
         {

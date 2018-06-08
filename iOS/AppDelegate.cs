@@ -105,10 +105,26 @@ namespace pushsample.iOS
 
             Console.WriteLine($"Token received: {deviceToken}");
 
-            await SendRegistrationToServerAsync(deviceToken);
+            //await SendRegistrationToServerAsyncNative(deviceToken);
+            await SendRegistrationToServerAsyncTemplate(deviceToken);
         }
 
-        async Task SendRegistrationToServerAsync(NSData deviceToken)
+        async Task SendRegistrationToServerAsyncNative(NSData deviceToken)
+        {
+            // This is the template/payload used by iOS. It contains the "messageParam"
+            // that will be replaced by our service.
+            const string templateBodyAPNS = "{\"aps\":{\"alert\":\"$(messageParam)\"}}";
+
+
+            string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
+
+            await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags);
+
+            //NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
+            //await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, tags);
+        }
+
+        async Task SendRegistrationToServerAsyncTemplate(NSData deviceToken)
         {
             // This is the template/payload used by iOS. It contains the "messageParam"
             // that will be replaced by our service.
@@ -116,16 +132,16 @@ namespace pushsample.iOS
 
             NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
 
-            string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports"};
-
-            //await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, tags);
-            await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags);
+            string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
             var templates = new JObject();
             templates["genericMessage"] = new JObject
             {
                 {"body", templateBodyAPNS}
             };
+
+            await TemplateRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags, templateBodyAPNS);
+        }
 
             //await TemplateRegisterWithAzureNotificationHubRegistration(deviceToken, tags, templates);
 
@@ -241,13 +257,21 @@ namespace pushsample.iOS
             //--WILL (DELETE EXISTING REGISTRATIONS WITH SAME HANDLE) -- 
             //--CREATE A REGISTRATION WITH REGISTRATION ID + TAG + (NATIVE VS. TAG BASED)
             //--RETURN SUCCESS OR FAILURE
-        }
+        //}
 
         public class DeviceRegistration
         {
             public string Platform { get; set; }
             public string Handle { get; set; } //NSData
             public string[] Tags { get; set; } //NSSet
+        }
+
+        public class DeviceRegistrationWithTemplate
+        {
+            public string Platform { get; set; }
+            public string Handle { get; set; } //NSData
+            public string[] Tags { get; set; } //NSSet
+            public string Templates { get; set; }
         }
 
         public async Task<HttpResponseMessage> 
@@ -313,6 +337,73 @@ namespace pushsample.iOS
 //            YOU WANT TO ADD TAGS
 //            var stringPayload = JsonConvert.SerializeObject(deviceToken);
 //            var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+        }
+
+
+        public async Task<HttpResponseMessage>
+        TemplateRegisterWithAzureNotificationHubRegistration(NSData deviceToken, string[] setOfTags, string templates)
+        {
+            var myHttpClient = new HttpClient();
+            string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
+            string MyApiURL = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetRegistrationIdPassingHandle/{0}", deviceTokenString);
+
+            //var serializedTags = JsonConvert.SerializeObject(setOfTags);
+            //var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
+
+            //int integerOfSetOfTags = setOfTags.Count();
+
+            //string[] setOfTagsStrings = new string[integerOfSetOfTags-1];
+
+            //for (int i = 0; i < integerOfSetOfTags-1; i++)
+            //{
+            //    setOfTagsString[i] = setOfTags[i].ToString();
+            //}
+
+            //foreach(var item in setOfTags)
+            //{
+            //}
+
+            var _deviceRegistration = new DeviceRegistrationWithTemplate()
+            {
+                Platform = "apns",
+                //                Handle = deviceToken,
+                Handle = deviceTokenString,
+                Tags = setOfTags,
+                Templates = templates
+            };
+
+            var serializedDeviceRegistration = JsonConvert.SerializeObject(_deviceRegistration);
+            //var httpContent = new StringContent(_deviceRegistration, Encoding.UTF8, "application/json");
+            var httpContent = new StringContent(serializedDeviceRegistration, Encoding.UTF8, "application/json");
+
+            var httpRequest = new HttpRequestMessage
+            {
+                Method = new HttpMethod("POST"),
+                RequestUri = new Uri(MyApiURL),
+                Content = httpContent
+            };
+
+            Console.WriteLine("{0}", httpRequest.RequestUri.ToString());
+
+            try
+            {
+                //UpdateActivityIndicatorStatus(true);
+                return await myHttpClient.SendAsync(httpRequest).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                //AppCenterHelpers.LogException(e);
+                Console.WriteLine("Did not register");
+                return null;
+            }
+            finally
+            {
+                //UpdateActivityIndicatorStatus(false);
+            }
+
+            //            YOU WANT TO ADD TAGS
+            //            var stringPayload = JsonConvert.SerializeObject(deviceToken);
+            //            var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
         }
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
