@@ -142,122 +142,6 @@ namespace pushsample.iOS
             await TemplateRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags, templateBodyAPNS);
         }
 
-            //await TemplateRegisterWithAzureNotificationHubRegistration(deviceToken, tags, templates);
-
-            //Hub = new SBNotificationHub(App.ConnectionString, App.NotificationHubName);
-
-            //Hub.UnregisterAllAsync(deviceToken, (error) =>
-            //{
-                //if (error != null)
-                //{
-                //    Console.WriteLine("Error calling Unregister: {0}", error.ToString());
-                //    return;
-                //}
-
-                //NSSet tags = null; // create tags if you want
-
-
-                //NATIVE REGISTRATION
-                //Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
-                //    if (errorCallback != null)
-                //        Console.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
-                //});
-
-                ////TEMPLATE REGISTRATION
-                //Hub.RegisterTemplateAsync(deviceToken, templateBodyAPNS, templateBodyAPNS, "0", tags, (errorCallback) =>
-                //{
-                //    if (errorCallback != null)
-                //        Console.WriteLine("RegisterTemplateAsync error: " + errorCallback.ToString());
-                //});
-
-                //This will be replaced with a Function calling into a NotificationHub
-                //var client = new MobileServiceClient(XamUNotif.App.MobileServiceUrl);
-                //await client.GetPush().RegisterAsync(deviceToken, templates);
-            //});
-
-            //var myHttpClient = new HttpClient();
-            //var stringPayload = JsonConvert.SerializeObject(deviceToken);
-            //var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-
-            //var httpRequest = new HttpRequestMessage
-            //{
-            //    Method = new HttpMethod("PUT"),
-            //    RequestUri = new Uri(apiUrl),
-            //    Content = httpContent
-            //};
-
-            //try
-            //{
-            //    //UpdateActivityIndicatorStatus(true);
-
-            //    return await myHttpClient.SendAsync(httpRequest).ConfigureAwait(false);
-            //}
-            //catch (Exception e)
-            //{
-            //    //AppCenterHelpers.LogException(e);
-            //    return null;
-            //}
-            //finally
-            //{
-            //    //UpdateActivityIndicatorStatus(false);
-            //}
-
-            //CREATE HTTP CLIENT
-
-            //protected static async Task<double> GetAllCosmosPrayerRequests(string apiUrl)
-            //{
-            //SIMPLIFIED FORM CREATING NEW HTTP CLIENT
-            //var myHttpClient = new HttpClient();
-            //string clientString = await myHttpClient.GetStringAsync(apiUrl).ConfigureAwait(false);
-            //var deserializedListOfCosmosDBPrayerRequests = JsonConvert.DeserializeObject<List<CosmosDBPrayerRequest>>(clientString);
-            //return deserializedListOfCosmosDBPrayerRequests;
-            //}
-
-            //protected static async Task<HttpResponseMessage> PutCosmosPrayerRequestByAsync(string apiUrl, CosmosDBPrayerRequest data)
-            //{
-
-
-            //var stringPayload = await Task.Run(() => JsonConvert.SerializeObject(deviceToken)).ConfigureAwait(false);
-            //var stringPayload = JsonConvert.SerializeObject(deviceToken);
-            //var myStringContent = new StringContent("content");
-            //var myStringContent = new StringContent("content", Encoding.UTF8, "application/json");
-
-            ////var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-
-                //var httpRequest = new HttpRequestMessage
-                //{
-                //    Method = new HttpMethod("PUT"),
-                //    RequestUri = new Uri(apiUrl),
-                //    Content = httpContent
-                //};
-
-                //try
-                //{
-                //    UpdateActivityIndicatorStatus(true);
-
-                //    return await Client.SendAsync(httpRequest).ConfigureAwait(false);
-                //}
-                //catch (Exception e)
-                //{
-                //    //AppCenterHelpers.LogException(e);
-                //    return null;
-                //}
-                //finally
-                //{
-                //    UpdateActivityIndicatorStatus(false);
-                //}
-            //}
-
-
-
-            //CALL FUNCTION1 (PASSING HANDLE AND TAGS) AND INCLUDE "CLEANED" (NO SPACES ALL UPPER CASE) DEVICE TOKEN
-
-            //FUNCTION1
-            //--WILL (DELETE EXISTING REGISTRATIONS WITH SAME HANDLE) -- 
-            //--CREATE A REGISTRATION WITH REGISTRATION ID + TAG + (NATIVE VS. TAG BASED)
-            //--RETURN SUCCESS OR FAILURE
-        //}
-
         public class DeviceRegistration
         {
             public string Platform { get; set; }
@@ -282,32 +166,15 @@ namespace pushsample.iOS
             string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
             string MyApiURL = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetRegistrationIdPassingHandle/{0}", deviceTokenString);
 
-            //var serializedTags = JsonConvert.SerializeObject(setOfTags);
-            //var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
-
-            //int integerOfSetOfTags = setOfTags.Count();
-
-            //string[] setOfTagsStrings = new string[integerOfSetOfTags-1];
-
-            //for (int i = 0; i < integerOfSetOfTags-1; i++)
-            //{
-            //    setOfTagsString[i] = setOfTags[i].ToString();
-            //}
-
-            //foreach(var item in setOfTags)
-            //{
-            //}
-
             var _deviceRegistration = new DeviceRegistration() 
             { 
                 Platform = "apns",
-//                Handle = deviceToken,
                 Handle=deviceTokenString,
                 Tags = setOfTags
             };
 
             var serializedDeviceRegistration = JsonConvert.SerializeObject(_deviceRegistration);
-            //var httpContent = new StringContent(_deviceRegistration, Encoding.UTF8, "application/json");
+
             var httpContent = new StringContent(serializedDeviceRegistration, Encoding.UTF8, "application/json");
 
             var httpRequest = new HttpRequestMessage
@@ -321,7 +188,6 @@ namespace pushsample.iOS
 
             try
             {
-                //UpdateActivityIndicatorStatus(true);
                 return await myHttpClient.SendAsync(httpRequest).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -330,52 +196,24 @@ namespace pushsample.iOS
                 Console.WriteLine("Did not register");
                 return null;
             }
-            finally
-            {
-                //UpdateActivityIndicatorStatus(false);
-            }
-
-//            YOU WANT TO ADD TAGS
-//            var stringPayload = JsonConvert.SerializeObject(deviceToken);
-//            var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
         }
-
 
         public async Task<HttpResponseMessage>
         TemplateRegisterWithAzureNotificationHubRegistration(NSData deviceToken, string[] setOfTags, string templates)
         {
             var myHttpClient = new HttpClient();
             string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-            //string MyApiURL = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetRegistrationIdPassingHandle/{0}", deviceTokenString);
             string MyApiURLTemplate = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetTemplateRegistrationWithTags/{0}", deviceTokenString);
-
-            //var serializedTags = JsonConvert.SerializeObject(setOfTags);
-            //var httpContent = new StringContent(serializedTags, Encoding.UTF8, "application/json");
-
-            //int integerOfSetOfTags = setOfTags.Count();
-
-            //string[] setOfTagsStrings = new string[integerOfSetOfTags-1];
-
-            //for (int i = 0; i < integerOfSetOfTags-1; i++)
-            //{
-            //    setOfTagsString[i] = setOfTags[i].ToString();
-            //}
-
-            //foreach(var item in setOfTags)
-            //{
-            //}
 
             var _deviceRegistration = new DeviceRegistrationWithTemplate()
             {
                 Platform = "apns",
-                //                Handle = deviceToken,
                 Handle = deviceTokenString,
                 Tags = setOfTags,
                 jsonBodyTemplates = templates
             };
 
             var serializedDeviceRegistration = JsonConvert.SerializeObject(_deviceRegistration);
-            //var httpContent = new StringContent(_deviceRegistration, Encoding.UTF8, "application/json");
             var httpContent = new StringContent(serializedDeviceRegistration, Encoding.UTF8, "application/json");
 
             var httpRequest = new HttpRequestMessage
@@ -389,7 +227,6 @@ namespace pushsample.iOS
 
             try
             {
-                //UpdateActivityIndicatorStatus(true);
                 return await myHttpClient.SendAsync(httpRequest).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -398,14 +235,6 @@ namespace pushsample.iOS
                 Console.WriteLine("Did not register");
                 return null;
             }
-            finally
-            {
-                //UpdateActivityIndicatorStatus(false);
-            }
-
-            //            YOU WANT TO ADD TAGS
-            //            var stringPayload = JsonConvert.SerializeObject(deviceToken);
-            //            var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
         }
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
@@ -420,7 +249,6 @@ namespace pushsample.iOS
         {
             // This will be called if the app is in the background/not running and if in the foreground.
             // However, it will not display a notification visually if the app is in the foreground.
-
             PresentNotification(userInfo);
             //ProcessNotification(userInfo, false);
 
@@ -449,55 +277,5 @@ namespace pushsample.iOS
                 MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, msg);
             }
         }
-
-        //void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
-        //{
-        //    // Check to see if the dictionary has the aps key.  This is the notification payload you would have sent
-        //    if (null != options && options.ContainsKey(new NSString("aps")))
-        //    {
-        //        //Get the aps dictionary
-        //        NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
-
-        //        string alert = string.Empty;
-
-        //        //Extract the alert text
-        //        // NOTE: If you're using the simple alert by just specifying
-        //        // "  aps:{alert:"alert msg here"}  ", this will work fine.
-        //        // But if you're using a complex alert with Localization keys, etc.,
-        //        // your "alert" object from the aps dictionary will be another NSDictionary.
-        //        // Basically the JSON gets dumped right into a NSDictionary,
-        //        // so keep that in mind.
-        //        if (aps.ContainsKey(new NSString("alert")))
-        //            alert = (aps[new NSString("alert")] as NSString).ToString();
-
-        //        //If this came from the ReceivedRemoteNotification while the app was running,
-        //        // we of course need to manually process things like the sound, badge, and alert.
-        //        if (!fromFinishedLaunching)
-        //        {
-        //            //Manually show an alert
-        //            if (!string.IsNullOrEmpty(alert))
-        //            {
-        //                UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
-        //                avAlert.Show();
-        //            }
-        //        }
-        //    }
-
-        //    NSDictionary aps1 = options.ObjectForKey(new NSString("aps")) as NSDictionary;
-
-        //    var msg = string.Empty;
-        //    if (aps1.ContainsKey(new NSString("alert")))
-        //    {
-        //        msg = (aps1[new NSString("alert")] as NSString).ToString();
-        //    }
-
-        //    if (string.IsNullOrEmpty(msg))
-        //    {
-        //        msg = "(unable to parse)";
-        //    }
-
-        //    MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, msg);
-
-        //}
     }
 }
