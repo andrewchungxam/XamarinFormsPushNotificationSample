@@ -4,13 +4,11 @@ XamarinFormsPushNotificationSample
 iOS only:
 
 Branches were made and kept for checkpoints in project:<br ><br >
-Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications from "Pusher app") <br >
-Branch 2 - Branch 1 + registered with Azure Notification Hub directly + receiving test Push Notications from Azure Porta) <br >
-Branch 3 - Branch 2 + Ability to create specialized Notification Tags ("Similar to topic subscriptions") + Console Application to trigger Notifications <br >
-<br >
-Branch 4 - Branch 3 + Xamarin Forms app (receiving push notifications + Functions to register devices + triggering notification via Postman or Console application) <br >
-Branch 5 - Branch 4 - Xamarin Forms app (registering a username tag + trigger a notification to Usernme via Function or console ) <br >
-<br >
+Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications from "Pusher app") <br ><br >
+Branch 2 - Branch 1 + registered with Azure Notification Hub directly + receiving test Push Notications from Azure Porta) <br ><br >
+Branch 3 - Branch 2 + Ability to create specialized Notification Tags ("Similar to topic subscriptions") + Console Application to trigger Notifications <br ><br >
+Branch 4 - Branch 3 + Xamarin Forms app (receiving push notifications + Functions to register devices + triggering notification via Postman or Console application) <br ><br >
+Branch 5 - Branch 4 - Xamarin Forms app (registering a username tag + trigger a notification to Usernme via Function or console ) <br ><br >
 <br >
 <br >
 <br >
