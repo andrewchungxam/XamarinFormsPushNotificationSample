@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Text;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+
+using System.Net.Http;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using UIKit;
 using Foundation;
 
 using Xamarin.Forms;
 using UserNotifications;
-
-using Newtonsoft.Json.Linq;
 using WindowsAzure.Messaging;
-using System.Net.Http;
-using Newtonsoft.Json;
-using System.Text;
 
-using System.Runtime;
 
 namespace pushsample.iOS
 {
