@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.Azure.NotificationHubs;
 
 using AzureConstants;
+using Newtonsoft.Json;
+using SharedClasses;
 
 namespace pushsample
 {
@@ -11,8 +13,7 @@ namespace pushsample
     {
         public static void Main(string[] args)
         {
-
-            //SendTemplateNotificationAsyncNativeApple();  //(native registration only)
+            //SendNativeNotificationAsyncNativeApple();  //(native registration only)
             //SendTemplateNotificationAsync(); //(Template registration only)
             SendTemplateNotificationMultipleAsync(); //Tempalte registration only)
 
@@ -20,7 +21,9 @@ namespace pushsample
             Console.WriteLine("Hello World!");
         }
 
-        private static async void SendTemplateNotificationAsyncNativeApple()
+
+
+        private static async void SendNativeNotificationAsyncNativeApple()
         {
             //
             //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A NATIVE REGISTRATION
@@ -37,13 +40,30 @@ namespace pushsample
             var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
             Array.Resize(ref categories, categories.Length + 1);
-            var sampleUsername = "NewUser101";
-            categories[categories.Length - 1] = "username:" + sampleUsername;
+            var nativeUsername = "NativeUser101";
+            categories[categories.Length - 1] = "username:" + nativeUsername;
+            var sdf = categories[1];
 
             //this errors out - as the string type doesn't match registration string jsonString =  "{\"aps\":{\"alert\":\" message to be displayed\",\"sound\":\"default\",\"badge\":1}, \"Data\":{ \"key1\":\"value1\", \"key2\":\"value2\"}";
+            for (int i = 0; i < categories.Length; i++)
+            {
+                //FOR FORMAT REQUIRING MODIFIED MESSAGES IN YOUR ALERT
+                var _apns = new Aps() {
+                    alert = String.Format("From your console - {0} native registration.", categories[i])
+                };
 
-            string jsonString2 = "{\"aps\":{\"alert\":\"From your console - native registration\"}}";
-            await hubClient.SendAppleNativeNotificationAsync(jsonString2, "World");
+                var _rootObject = new RootObject {
+                    aps = _apns
+                };
+
+                string newJsonString = JsonConvert.SerializeObject(_rootObject);
+
+                await hubClient.SendAppleNativeNotificationAsync(newJsonString, categories[i]);
+
+                //FOR FORMATS NOT REQUIRING MODIFIED MESSAGES IN YOUR ALERT
+                //string jsonString2 = String.Format("{\"aps\":{\"alert\":\"From your console - native registration\"}}");
+                //await hubClient.SendAppleNativeNotificationAsync(jsonString2, categories[i]);
+            }
         }
 
         private static async void SendTemplateNotificationAsync()
@@ -63,8 +83,8 @@ namespace pushsample
             var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
             Array.Resize(ref categories, categories.Length + 1);
-            var sampleUsername = "NewUser101";
-            categories[categories.Length - 1] = "username:" + sampleUsername;
+            var templateUsername = "TemplateUser101";
+            categories[categories.Length - 1] = "username:" + templateUsername;
 
             Dictionary<string, string> templateParams = new Dictionary<string, string>();
             //{
@@ -91,8 +111,8 @@ namespace pushsample
             var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
             Array.Resize(ref categories, categories.Length + 1);
-            var sampleUsername = "NewUser101";
-            categories[categories.Length - 1] = "username:" + sampleUsername;
+            var templateUsername = "TemplateUser101";
+            categories[categories.Length - 1] = "username:" + templateUsername;
 
             Dictionary<string, string> templateParams = new Dictionary<string, string>();
             //{

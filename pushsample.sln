@@ -16,12 +16,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationViaFunction", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AzureConstants", "AzureConstants\AzureConstants.shproj", "{CDDC8BEB-51A0-4CB4-865B-564A7CF44F70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationRegistration", "NotificationRegistration\NotificationRegistration.csproj", "{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationRegistration", "NotificationRegistration\NotificationRegistration.csproj", "{D0BCE083-0151-4AEA-99E3-88967CEE1AE7}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedClasses", "SharedClasses\SharedClasses.shproj", "{C76806A7-3697-410A-A036-39BB49FE1EB2}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		pushsample\pushsample.projitems*{1b8379f7-78ab-421d-b82c-4f49f38f4eb9}*SharedItemsImports = 13
 		pushsample\pushsample.projitems*{277448bf-446f-4fcf-81f1-6fa847c800da}*SharedItemsImports = 4
+		SharedClasses\SharedClasses.projitems*{c76806a7-3697-410a-a036-39bb49fe1eb2}*SharedItemsImports = 13
 		AzureConstants\AzureConstants.projitems*{cddc8beb-51a0-4cb4-865b-564a7cf44f70}*SharedItemsImports = 13
 		pushsample\pushsample.projitems*{e57d34ab-6970-4dda-947a-966cb658373e}*SharedItemsImports = 4
 	EndGlobalSection

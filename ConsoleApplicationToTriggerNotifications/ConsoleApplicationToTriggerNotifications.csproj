@@ -11,4 +11,6 @@
 
   <Import Project="..\AzureConstants\AzureConstants.projitems" Label="Shared" />
 
+  <Import Project="..\SharedClasses\SharedClasses.projitems" Label="Shared" />
+
 </Project>

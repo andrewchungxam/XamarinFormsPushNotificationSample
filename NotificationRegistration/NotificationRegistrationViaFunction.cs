@@ -110,10 +110,8 @@ namespace NotificationRegistration
             //ADD CHECK IF USER IS ALLOWED TO USE THESE TAGS
             //THIS WILL BE MOVED INTO THE APP LEVEL - THIS CAN BE ADDED IN VARIOUS PLACES DEPENDING ON ARCHITECTURE
             registration.Tags = new HashSet<string>(deviceUpdate.Tags);
-            registration.Tags.Add("username:" + "friendlyUser101");
-
-            var sampleUsername = "NewUser101";
-            registration.Tags.Add("username:" + sampleUsername);
+            var nativeUsername = "NativeUser101";
+            registration.Tags.Add("username:" + nativeUsername);
 
             try
             {
@@ -155,8 +153,8 @@ namespace NotificationRegistration
             var stringTags = deviceRegistrationObjectWithTemplate.Tags;
 
             Array.Resize(ref stringTags, stringTags.Length + 1);
-            var sampleUsername = "NewUser101";
-            stringTags[stringTags.Length - 1] = "username:" + sampleUsername;
+            var templateUsername = "TemplateUser101";
+            stringTags[stringTags.Length - 1] = "username:" + templateUsername;
 
             try
             {
