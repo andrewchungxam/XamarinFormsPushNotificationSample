@@ -36,6 +36,10 @@ namespace pushsample
             // Create an array of breaking news categories.
             var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
+            Array.Resize(ref categories, categories.Length + 1);
+            var sampleUsername = "NewUser101";
+            categories[categories.Length - 1] = "username:" + sampleUsername;
+
             //this errors out - as the string type doesn't match registration string jsonString =  "{\"aps\":{\"alert\":\" message to be displayed\",\"sound\":\"default\",\"badge\":1}, \"Data\":{ \"key1\":\"value1\", \"key2\":\"value2\"}";
 
             string jsonString2 = "{\"aps\":{\"alert\":\"From your console - native registration\"}}";
@@ -57,6 +61,10 @@ namespace pushsample
                 );
             // Create an array of breaking news categories.
             var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
+
+            Array.Resize(ref categories, categories.Length + 1);
+            var sampleUsername = "NewUser101";
+            categories[categories.Length - 1] = "username:" + sampleUsername;
 
             Dictionary<string, string> templateParams = new Dictionary<string, string>();
             //{
@@ -81,6 +89,10 @@ namespace pushsample
                 );
             // Create an array of breaking news categories.
             var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
+
+            Array.Resize(ref categories, categories.Length + 1);
+            var sampleUsername = "NewUser101";
+            categories[categories.Length - 1] = "username:" + sampleUsername;
 
             Dictionary<string, string> templateParams = new Dictionary<string, string>();
             //{

@@ -106,25 +106,21 @@ namespace pushsample.iOS
 
             Console.WriteLine($"Token received: {deviceToken}");
 
-            //await SendRegistrationToServerAsyncNative(deviceToken);
-            await SendRegistrationToServerAsyncTemplate(deviceToken);
+            //await SendRegistrationToServerAsyncNativeWithUsername(deviceToken);
+            await SendRegistrationToServerAsyncTemplateWithUsername(deviceToken);
         }
 
-        async Task SendRegistrationToServerAsyncNative(NSData deviceToken)
+        async Task SendRegistrationToServerAsyncNativeWithUsername(NSData deviceToken)
         {
             // This is the template/payload used by iOS. It contains the "messageParam"
             // that will be replaced by our service.
 
-
-
             string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
-            //registration.Tags = new HashSet<string>(deviceUpdate.Tags);
-            //registration.Tags.Add("username:" + "friendlyUser101");
-
-            stringTags.Append<string>("username:" + "friendlyUser101");
+            Array.Resize(ref stringTags, stringTags.Length + 1);
+            var sampleUsername = "NewUser101";
+            stringTags[stringTags.Length - 1] = "username:" + sampleUsername;
             var hi = stringTags;
-
 
             await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags);
 
@@ -132,7 +128,7 @@ namespace pushsample.iOS
             //await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, tags);
         }
 
-        async Task SendRegistrationToServerAsyncTemplate(NSData deviceToken)
+        async Task SendRegistrationToServerAsyncTemplateWithUsername(NSData deviceToken)
         {
             // This is the template/payload used by iOS. It contains the "messageParam"
             // that will be replaced by our service.
@@ -141,6 +137,11 @@ namespace pushsample.iOS
             //NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
 
             string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
+
+            Array.Resize(ref stringTags, stringTags.Length + 1);
+            var sampleUsername = "NewUser101";
+            stringTags[stringTags.Length - 1] = "username:" + sampleUsername;
+            var hi = stringTags;
 
             var templates = new JObject();
             templates["genericMessage"] = new JObject
