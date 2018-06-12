@@ -115,7 +115,16 @@ namespace pushsample.iOS
             // This is the template/payload used by iOS. It contains the "messageParam"
             // that will be replaced by our service.
 
+
+
             string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
+
+            //registration.Tags = new HashSet<string>(deviceUpdate.Tags);
+            //registration.Tags.Add("username:" + "friendlyUser101");
+
+            stringTags.Append<string>("username:" + "friendlyUser101");
+            var hi = stringTags;
+
 
             await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags);
 
@@ -129,7 +138,7 @@ namespace pushsample.iOS
             // that will be replaced by our service.
             const string templateBodyAPNS = "{\"aps\":{\"alert\":\"$(messageParam)\"}}";
 
-            NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
+            //NSSet tags = new NSSet("World", "Politics", "Business", "Technology", "Science", "Sports");
 
             string[] stringTags = new string[] { "Functions", "World", "Politics", "Business", "Technology", "Science", "Sports" };
 

@@ -72,8 +72,6 @@ namespace NotificationViaFunction
             }
 
             return req.CreateResponse(System.Net.HttpStatusCode.BadRequest, "Bad Requestion - Notification Function triggered - Native");
-
-
         }
 
 
