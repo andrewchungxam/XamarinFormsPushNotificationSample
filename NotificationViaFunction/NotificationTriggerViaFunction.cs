@@ -20,27 +20,7 @@ namespace NotificationViaFunction
         //PLEASE AVOID PORT EXHAUSTION: 
         //https://docs.microsoft.com/en-us/azure/azure-functions/manage-connections
 
-        //[FunctionName("NotificationTriggerViaFunction")]
-        //public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
-        //{
-        //    log.Info("C# HTTP trigger function processed a request.");
-
-        //    // parse query parameter
-        //    string name = req.GetQueryNameValuePairs()
-        //        .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
-        //        .Value;
-
-        //    // Get request body
-        //    dynamic data = await req.Content.ReadAsAsync<object>();
-
-        //    // Set name to query string or body data
-        //    name = name ?? data?.name;
-
-        //    return name == null
-        //        ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-        //        : req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
-        //}
-
+       
         [FunctionName("NotificationFunctionNative")]
         public static async Task<HttpResponseMessage> RunNotificationFunctionNative([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
@@ -124,8 +104,9 @@ namespace NotificationViaFunction
                 //{
                 //    { "messageParam", "Hello World"}
                 //};
-                templateParams["messageParam"] = "Breaking News!";
-                await hubClient.SendTemplateNotificationAsync(templateParams, categories);
+                templateParams["messageParam"] = "Breaking" + categories[0] + "News!";
+                await hubClient.SendTemplateNotificationAsync(templateParams, "World");
+                //await hubClient.SendTemplateNotificationAsync(templateParams, categories);
 
                 return req.CreateResponse(System.Net.HttpStatusCode.OK, "Success - Notification Function triggered - Template");
 

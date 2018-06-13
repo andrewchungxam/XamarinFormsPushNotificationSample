@@ -29,4 +29,11 @@ namespace AzureConstants
         public const string ConsoleApplicationFullAccessConnectionString = "Endpoint=sb://samplenotifhubtwonamespace.servicebus.windows.net/;SharedAccessKeyName=ConsoleApplicationFullAccess;SharedAccessKey=DivOPPwrOoRsXhdDpTGBLE+iW4COfUeX4OY96yRVX5Y=";
         public const string ConsoleApplicationNotificationHubName = "MySampleNotificationHub";
     }
+
+    public class AzureNotificationsViaFunctionsURLS
+    {
+        public const string NativeApiURL = "https://xamarinformsnotificationfunction.azurewebsites.net/"+"api/NotificationFunctionNative";
+        public const string TemplateApiURL = "https://xamarinformsnotificationfunction.azurewebsites.net/"+"api/NotificationFunctionTemplate";
+        public const string MultipleTemplateApiURL = "https://xamarinformsnotificationfunction.azurewebsites.net/" + "api/NotificationFunctionTemplateMultiple";
+    }
 }
