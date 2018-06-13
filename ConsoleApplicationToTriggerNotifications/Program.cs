@@ -44,7 +44,7 @@ namespace pushsample
 
         private static async void SendTemplateNotificationAsync()
         {
-
+            //
             //
             //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A TEMPLATE REGISTRATION
             //
