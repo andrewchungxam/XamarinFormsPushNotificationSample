@@ -11,7 +11,8 @@ Branch 2 - Branch 1 + registered with Azure Notification Hub directly + receivin
 Branch 3 - Branch 2 + Ability to create specialized Notification Tags ("Similar to topic subscriptions") + Console Application to trigger Notifications <br ><br >
 Branch 4 - Branch 3 + Xamarin Forms app (receiving push notifications + triggering notification via Functions + Postman or Console application) <br ><br >
 Branch 5 - Branch 4 + Use Functions to register devices <br ><br >
-Branch 6 - Branch 5 - Use Functions to registering a username tag + trigger a notification to Usernme via Function or Console application ) <br ><br >
+Branch 6 - Branch 5 + Use Functions to registering a username tag + trigger a notification to Usernme via Function or Console application ) <br ><br >
+Branch 7 - Branch 6 + Use button on Forms app to trigger notification <br ><br >
 <br >
 <br >
 <br >
