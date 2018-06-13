@@ -104,7 +104,7 @@ namespace NotificationViaFunction
                 //{
                 //    { "messageParam", "Hello World"}
                 //};
-                templateParams["messageParam"] = "Breaking" + categories[0] + "News!";
+                templateParams["messageParam"] = "Breaking " + categories[0] + " News!";
                 await hubClient.SendTemplateNotificationAsync(templateParams, "World");
                 //await hubClient.SendTemplateNotificationAsync(templateParams, categories);
 
