@@ -9,7 +9,8 @@ Notes:<br ><br >
 - For your production environment (iOS) you will be required to spin up a sepearate notification hub
 - There is a difference between Native registration and Template registration -- the difference may be subtle in the code but at the time of "triggering the notification" -- you will need to send a Native Notification to a Native Registration or send a Template Notification to a Template Registration.  This will become more relevant in the later branches.  
 - Note: you'll probably want to send notifications from the Azure portal (test send) -- this will work for Native Registrations and will start working in Branch 2.  Even after Branch 2 - you'll only be able to use the portal to send Native Notifications; Template Notifications will be sent via the tools you'll create on Branch 3 and on
-
+- If you have issues building when you switch branches - try do a BUILD > CLEAN ALL in Visual Studio and retrying the build
+- If you want to re-trigger a registration - you have to DELETE your app from your phone first.  A rebuild alone is not sufficient<br ><br >
 
 iOS only:
 Branches were made and kept for checkpoints in project:<br ><br >
