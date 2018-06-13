@@ -99,8 +99,12 @@ namespace NotificationViaFunction
                 //{
                 //    { "messageParam", "Hello World"}
                 //};
-                templateParams["messageParam"] = "Breaking News!";
-                await hubClient.SendTemplateNotificationAsync(templateParams, categories);
+                //SINGLE NOTIFICATION
+                templateParams["messageParam"] = "Breaking " + categories[0] + " News!";
+                await hubClient.SendTemplateNotificationAsync(templateParams, "World");
+
+                //MULTIPLE NOTIFICATIONS
+                //await hubClient.SendTemplateNotificationAsync(templateParams, categories);
 
                 return req.CreateResponse(System.Net.HttpStatusCode.OK, "Success - Notification Function triggered - Template");
 

@@ -62,8 +62,12 @@ namespace pushsample
             //{
             //    { "messageParam", "Hello World"}
             //};
-            templateParams["messageParam"] = "Breaking News!";
-            await hubClient.SendTemplateNotificationAsync(templateParams, categories);
+            //SINGLE NOTIFICATION
+            templateParams["messageParam"] = "Breaking " + categories[0] + " News!";
+            await hubClient.SendTemplateNotificationAsync(templateParams, "World");
+
+            //MULTIPLE NOTIFICATIONS
+            //await hubClient.SendTemplateNotificationAsync(templateParams, categories);
         }
 
         private static async void SendTemplateNotificationMultipleAsync()
