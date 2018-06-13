@@ -6,7 +6,7 @@ There are PDFs that will help with gettings started.  Triggering the Notificatio
 Notes:<br ><br >
 - Push notifications will only work on real devices; you can run the app on simulator but it will not receive notifications<br >
 - Real devices require special provisioning profiles from Apple to work; the PDFs and links contained therein will guide you <br >
-- For your production environment (iOS) you will be required to spin up a sepearate notification hub
+- For your production environment (iOS) you will be required to spin up a separate notification hub
 - There is a difference between Native registration and Template registration -- the difference may be subtle in the code but at the time of "triggering the notification" -- you will need to send a Native Notification to a Native Registration or send a Template Notification to a Template Registration.  This will become more relevant in the later branches.  
 - Note: you'll probably want to send notifications from the Azure portal (test send) -- this will work for Native Registrations and will start working in Branch 2.  Even after Branch 2 - you'll only be able to use the portal to send Native Notifications; Template Notifications will be sent via the tools you'll create on Branch 3 and on
 - If you have issues building when you switch branches - try do a BUILD > CLEAN ALL in Visual Studio and retrying the build
