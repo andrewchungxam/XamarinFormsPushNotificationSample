@@ -64,8 +64,8 @@ namespace pushsample
                 HorizontalOptions = LayoutOptions.Center,
                 Children = 
                 {
-                    stackLayoutTop,
-                    stackLayoutBottom
+                    stackLayoutTop //,
+                    //stackLayoutBottom
                 }
             };
 
