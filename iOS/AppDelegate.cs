@@ -120,7 +120,6 @@ namespace pushsample.iOS
             Array.Resize(ref stringTags, stringTags.Length + 1);
             var sampleUsername = "NewUser101";
             stringTags[stringTags.Length - 1] = "username:" + sampleUsername;
-            var hi = stringTags;
 
             await NativeRegisterWithAzureNotificationHubRegistration(deviceToken, stringTags);
 
@@ -141,7 +140,6 @@ namespace pushsample.iOS
             Array.Resize(ref stringTags, stringTags.Length + 1);
             var sampleUsername = "NewUser101";
             stringTags[stringTags.Length - 1] = "username:" + sampleUsername;
-            var hi = stringTags;
 
             var templates = new JObject();
             templates["genericMessage"] = new JObject
