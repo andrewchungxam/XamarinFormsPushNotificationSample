@@ -56,7 +56,6 @@ namespace pushsample.Droid.Services
                 channel.Description = "Great description";
                 channel.LightColor = Android.Graphics.Color.AliceBlue;
                 notificationManager.CreateNotificationChannel(channel);
-
             }
 
             var notificationBuilder = new NotificationCompat.Builder(this, NotificationChannelIdentifier)
