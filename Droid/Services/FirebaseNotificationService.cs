@@ -58,58 +58,43 @@ namespace pushsample.Droid.Services
                 channel.LightColor = Android.Graphics.Color.AliceBlue;
                 notificationManager.CreateNotificationChannel(channel);
 
-
-
-                //notificationChannel.setLightColor(Color.RED);
-                //notificationChannel.enableVibration(true);
-                //notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                //channel.Description("Great channel");
-                //channel.EnableLights(true);
-                //channel.LightColor(Color.RED);
-                //channel.enableVibration(true);
-                //channel.setVibrationPattern(new long[] { 100, 200, 300, 400, 500, 400, 300, 200, 400 });
-                //channel.setShowBadge(false);
             }
 
             var notificationBuilder = new NotificationCompat.Builder(this, NotificationChannelIdentifier)
             .SetSmallIcon(Resource.Drawable.ic_launcher)
-            .SetContentTitle("New Todo Item")
+            .SetContentTitle("New Notification Message")
             .SetContentText(messageBody)
             .SetContentIntent(pendingIntent)
-//            .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
             .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
             .SetAutoCancel(true);
-
-            //NEED TO ADD CHANNEL INFO
 
             notificationManager.Notify(0, notificationBuilder.Build());
 
             MessagingCenter.Send<object, string>(this, App.NotificationReceivedKey, messageBody);
         }
-
-        //void SendNotification(string messageBody)
-        //{
-        //    var intent = new Intent(this, typeof(MainActivity));
-        //    intent.AddFlags(ActivityFlags.ClearTop);
-        //    var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
-
-        //    var notificationBuilder = new Notification.Builder(this)
-        //                .SetContentTitle("FCM Message")
-        //                .SetSmallIcon(Resource.Drawable.ic_stat_ic_notification)
-        //                .SetContentText(messageBody)
-        //                .SetAutoCancel(true)
-        //                .SetContentIntent(pendingIntent);
-
-        //    var notificationManager = NotificationManager.FromContext(this);
-
-        //    notificationManager.Notify(0, notificationBuilder.Build());
-        //}
-
-
     }
-
-
 }
+
+
+//void SendNotification(string messageBody)
+//{
+//    var intent = new Intent(this, typeof(MainActivity));
+//    intent.AddFlags(ActivityFlags.ClearTop);
+//    var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
+
+//    var notificationBuilder = new Notification.Builder(this)
+//                .SetContentTitle("FCM Message")
+//                .SetSmallIcon(Resource.Drawable.ic_stat_ic_notification)
+//                .SetContentText(messageBody)
+//                .SetAutoCancel(true)
+//                .SetContentIntent(pendingIntent);
+
+//    var notificationManager = NotificationManager.FromContext(this);
+
+//    notificationManager.Notify(0, notificationBuilder.Build());
+//}
+
+
 //    [Service]
 //    [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
 //    public class FirebaseNotificationService : FirebaseMessagingService
