@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "859713830667",
+    "firebase_url": "https://xfandroidnotifhub.firebaseio.com",
+    "project_id": "xfandroidnotifhub",
+    "storage_bucket": "xfandroidnotifhub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859713830667:android:63d465e38efbf844",
+        "android_client_info": {
+          "package_name": "com.acxamarinforms.pushsample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859713830667-govfhu5s45igrifedvbpsb7fa217v3ce.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "859713830667-govfhu5s45igrifedvbpsb7fa217v3ce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjb9e30dAuwXZ8HRwN-8e2IJGSUTYHdRA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
