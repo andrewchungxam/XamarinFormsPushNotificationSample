@@ -17,13 +17,15 @@ Branches were made and kept for checkpoints in project:<br ><br >
 Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications from "Pusher app") <br ><br >
 Branch 2 - Branch 1 + registered with Azure Notification Hub directly + receiving test Push Notications from the Azure portal) <br ><br >
 Branch 3 - Branch 2 + Ability to create specialized Notification Tags ("Similar to topic subscriptions") + Console Application to trigger Notifications <br ><br >
-Branch 4 - Branch 3 + Xamarin Forms app (receiving push notifications + triggering notification via Functions + Postman or Console application) <br ><br >
+Branch 4 - Branch 3 + Xamarin Forms app (receiving push notifications + Triggering notifications via Functions + Postman (Or Console from previous project) <br ><br >
 Branch 5 - Branch 4 + Use Functions to register devices <br ><br >
 Branch 6 - Branch 5 + Use Functions to registering a username tag + trigger a notification to Usernme via Function or Console application ) <br ><br >
 Branch 7 - Branch 6 + Use buttons on Forms app to trigger notification <br ><br >
 ANDROID: <br ><br >
 Branch 8 - Branch 7 + Android + Native Notifications + Azure Notification Hub Test Send<br ><br > 
 Branch 9 - Branch 8 + Android + Template Notifications + Console Send<br ><br > 
+Branch 10 - Branch 9 + Android + Triggering notifications via Functions + Postman (Or Console from previous project)<br ><br > 
+
 <br >
 <br >
 This Push notification sample is inspired by and based on projects by my colleagues: <br >
