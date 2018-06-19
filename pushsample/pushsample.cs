@@ -16,6 +16,7 @@ namespace pushsample
         public const string NotificationReceivedKey = "NotificationReceived";
         //public const string MobileServiceUrl = "http://xamarinpushnotifhubbackend.azurewebsites.net";
 
+
         public App()
         {
             var pushPage = new PushPage();
