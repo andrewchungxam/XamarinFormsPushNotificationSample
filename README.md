@@ -22,8 +22,8 @@ Branch 5 - Branch 4 + Use Functions to register devices <br ><br >
 Branch 6 - Branch 5 + Use Functions to registering a username tag + trigger a notification to Usernme via Function or Console application ) <br ><br >
 Branch 7 - Branch 6 + Use buttons on Forms app to trigger notification <br ><br >
 ANDROID: <br ><br >
-Branch 8 - Branch 7 + Send Native Notifications to Android phone + Azure Notification Hub test send<br ><br > 
-<br >
+Branch 8 - Branch 7 + Android + Native Notifications + Azure Notification Hub Test Send<br ><br > 
+Branch 9 - Branch 8 + Android + Template Notifications + Console Send<br ><br > 
 <br >
 <br >
 This Push notification sample is inspired by and based on projects by my colleagues: <br >
