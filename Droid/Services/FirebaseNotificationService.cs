@@ -32,7 +32,6 @@ namespace pushsample.Droid.Services
             {
                 //Only used for debugging payloads sent from the Azure portal
                 SendNotification(message.Data.Values.First());
-
             }
 
         }
@@ -74,97 +73,3 @@ namespace pushsample.Droid.Services
         }
     }
 }
-
-
-//void SendNotification(string messageBody)
-//{
-//    var intent = new Intent(this, typeof(MainActivity));
-//    intent.AddFlags(ActivityFlags.ClearTop);
-//    var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
-
-//    var notificationBuilder = new Notification.Builder(this)
-//                .SetContentTitle("FCM Message")
-//                .SetSmallIcon(Resource.Drawable.ic_stat_ic_notification)
-//                .SetContentText(messageBody)
-//                .SetAutoCancel(true)
-//                .SetContentIntent(pendingIntent);
-
-//    var notificationManager = NotificationManager.FromContext(this);
-
-//    notificationManager.Notify(0, notificationBuilder.Build());
-//}
-
-
-//    [Service]
-//    [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
-//    public class FirebaseNotificationService : FirebaseMessagingService
-//    {
-//        const string TAG = "FirebaseNotificationService";
-
-//        //TEMPLATE STYLE
-//        //public override void OnMessageReceived(RemoteMessage message)
-//        //{
-//        //    Log.Debug(TAG, "From: " + message.From);
-
-//        //    // Pull message body out of the template
-//        //    var messageBody = message.Data["message"];
-//        //    if (string.IsNullOrWhiteSpace(messageBody))
-//        //        return;
-
-//        //    Log.Debug(TAG, "Notification message body: " + messageBody);
-//        //    SendNotification(messageBody);
-//        //}
-
-//        public override void OnMessageReceived(RemoteMessage message)
-//        {
-//            Log.Debug(TAG, "From: " + message.From);
-//            if (message.GetNotification() != null)
-//            {
-//                //These is how most messages will be received
-//                Log.Debug(TAG, "Notification Message Body: " + message.GetNotification().Body);
-//                SendNotification(message.GetNotification().Body);
-//            }
-//            else
-//            {
-//                //Only used for debugging payloads sent from the Azure portal
-//                SendNotification(message.Data.Values.First());
-//            }
-//        }
-
-//        //void SendNotification(string messageBody)
-//        //{
-//            //var intent = new Intent(this, typeof(MainActivity));
-//            //intent.AddFlags(ActivityFlags.ClearTop);
-//            //var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
-
-//            //var notificationBuilder = new NotificationCompat.Builder(this)
-//                //.SetSmallIcon(Resource.Drawable.ic_stat_ic_notification)
-//                //.SetContentTitle("New Todo Item")
-//                //.SetContentText(messageBody)
-//                //.SetContentIntent(pendingIntent)
-//                //.SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
-//                //.SetAutoCancel(true);
-
-//            //var notificationManager = NotificationManager.FromContext(this);
-//            //notificationManager.Notify(0, notificationBuilder.Build());
-//        //}
-
-//        void SendNotification(string messageBody)
-//        {
-//            var intent = new Intent(this, typeof(MainActivity));
-//            intent.AddFlags(ActivityFlags.ClearTop);
-//            var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
-
-//            var notificationBuilder = new Notification.Builder(this)
-//                        .SetContentTitle("FCM Message")
-//                        .SetSmallIcon(Resource.Drawable.ic_launcher)
-//                        .SetContentText(messageBody)
-//                        .SetAutoCancel(true)
-//                        .SetContentIntent(pendingIntent);
-
-//            var notificationManager = NotificationManager.FromContext(this);
-
-//            notificationManager.Notify(0, notificationBuilder.Build());
-//        }
-//    }
-//}
