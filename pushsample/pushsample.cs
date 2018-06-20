@@ -16,6 +16,8 @@ namespace pushsample
         public const string NotificationReceivedKey = "NotificationReceived";
         //public const string MobileServiceUrl = "http://xamarinpushnotifhubbackend.azurewebsites.net";
 
+        public const string ConnectionString = "Endpoint=sb://samplenotifhubtwonamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=zz5o0TdKfvv1JvktJzU46ndYg4s/niXHynNbCiIIOdg=";
+        public const string NotificationHubName = "mysampleandroidnotificationhub";
 
         public App()
         {
