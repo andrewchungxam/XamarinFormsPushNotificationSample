@@ -35,7 +35,7 @@ namespace AndroidNotificationViaFunction
                 // Create an array of breaking news categories.
                 var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
-                var jsonString2 = "{\"data\":{\"message\":\"From your console - native registration\"}}";
+                var jsonString2 = "{\"data\":{\"message\":\"From your Function - native registration\"}}";
 
                 await hubClient.SendGcmNativeNotificationAsync(jsonString2, "World");
 
@@ -90,14 +90,14 @@ namespace AndroidNotificationViaFunction
                 Debug.WriteLine("Error: ", exception.Message);
             }
 
-            return req.CreateResponse(System.Net.HttpStatusCode.BadRequest, "Bad Requestion - Notification Function triggered - Template");
+            return req.CreateResponse(System.Net.HttpStatusCode.BadRequest, "Bad Request - Notification Function triggered - Template");
         }
 
         [FunctionName("AndroidNotificationFunctionTemplateMultiple")]
         public static async Task<HttpResponseMessage> RunAndroidNotificationFunctionTemplateMultiple([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             //
-            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A TEMPLATE REGISTRATION
+            //THIS WILL ONLY WORK IF IN YOUR ANDROID APPLICATION - YOU USE A TEMPLATE REGISTRATION
             //
             try
             {
@@ -127,7 +127,7 @@ namespace AndroidNotificationViaFunction
                 Debug.WriteLine("Error: ", exception.Message);
             }
 
-            return req.CreateResponse(System.Net.HttpStatusCode.BadRequest, "Bad Requestion - Notification Function triggered - Template Multiple");
+            return req.CreateResponse(System.Net.HttpStatusCode.BadRequest, "Bad Request - Notification Function triggered - Template Multiple");
         }
 
     }
