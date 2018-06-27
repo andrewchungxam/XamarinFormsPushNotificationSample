@@ -17,7 +17,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.NotificationHubs;
 using Microsoft.Azure.NotificationHubs.Messaging;
 
-using AzureConstants;
+using AndroidAzureConstants;
 
 namespace AndroidRegistrationFunction
 {
