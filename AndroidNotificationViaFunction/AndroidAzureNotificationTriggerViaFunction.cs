@@ -10,11 +10,19 @@ using Microsoft.Azure.WebJobs.Host;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System;
-using Newtonsoft.Json;
-using AndroidSharedClasses;
 
 namespace AndroidNotificationViaFunction
 {
+
+    public class Data
+    {
+        public string message { get; set; }
+    }
+
+    public class RootObject
+    {
+        public Data data { get; set; }
+    }
 
     public static class AndroidAzureNotificationTriggerViaFunction
     {
@@ -24,7 +32,7 @@ namespace AndroidNotificationViaFunction
         {
 
             //
-            //THIS WILL ONLY WORK IF IN YOUR ANDROID APPLICATION - YOU USE A NATIVE REGISTRATION
+            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A NATIVE REGISTRATION
             //
 
             try
@@ -82,7 +90,7 @@ namespace AndroidNotificationViaFunction
         public static async Task<HttpResponseMessage> RunAndroidNotificationFunctionTemplate([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             //
-            //THIS WILL ONLY WORK IF IN YOUR ANDROID APPLICATION - YOU USE A TEMPLATE REGISTRATION
+            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A TEMPLATE REGISTRATION
             //
 
             try
