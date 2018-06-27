@@ -18,6 +18,14 @@ namespace pushsample.Droid.Services
     [IntentFilter(new[] { "com.google.firebase.INSTANCE_ID_EVENT" })]
     public class MyFirebaseIIDService : FirebaseInstanceIdService
     {
+        //Task<HttpResponseMessage> AndroidNativeRegisterWithAzureNotificationHubRegistration(string token, string[] setOfTags)
+        public const string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
+        public const string specificAPINotificationRegistration_NativeAndroidUsername = "/api/GetNativeAndroidRegistrationIdPassingHandleUsername/";
+
+        //Task<HttpResponseMessage> TemplateRegisterWithAzureNotificationHubRegistration(string token, string[] setOfTags, string nameOfTemplate, string templates)
+        //string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
+        public const string specificAPINotificationRegistration_TemplateAndroidUsername = "/api/GetTemplateAndroidRegistrationWithTagsUsername/";
+
 
         const string TAG = "MyFirebaseIIDService";
         NotificationHub hub;
@@ -46,8 +54,6 @@ namespace pushsample.Droid.Services
 
             //var tags = new List<string>() { };
             var tags = new List<string>() { "World", "Politics", "Business", "Technology", "Science", "Sports" };
-
-
 
             var regID = hub.Register(token, tags.ToArray()).RegistrationId;
 
@@ -128,13 +134,11 @@ namespace pushsample.Droid.Services
         public async Task<HttpResponseMessage> AndroidNativeRegisterWithAzureNotificationHubRegistration(string token, string[] setOfTags)
         {
             var myHttpClient = new HttpClient();
-            //string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-            string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
-            string specificAPINotificationRegistration_NativeAndroid = "/api/GetNativeAndroidRegistrationIdPassingHandle/";
-            string MyApiURL = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_NativeAndroid, token);
+            //string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
+            //string specificAPINotificationRegistration_NativeAndroid = "/api/GetNativeAndroidRegistrationIdPassingHandle/";
+            //string MyApiURL = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_NativeAndroid, token);
 
-            //NativeAndroidRegistrationWithTags: http://localhost:7071/api/GetNativeAndroidRegistrationIdPassingHandle/{handleString}
-            //TemplateAzureRegistrationWithTags: http://localhost:7071/api/GetTemplateAndroidRegistrationWithTags/{handleString}
+            string MyApiURLUsername = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_NativeAndroidUsername, token);
 
             var _deviceRegistration = new DeviceRegistration()
             {
@@ -150,7 +154,7 @@ namespace pushsample.Droid.Services
             var httpRequest = new HttpRequestMessage
             {
                 Method = new HttpMethod("POST"),
-                RequestUri = new Uri(MyApiURL),
+                RequestUri = new Uri(MyApiURLUsername),
                 Content = httpContent
             };
 
@@ -198,12 +202,11 @@ namespace pushsample.Droid.Services
              TemplateRegisterWithAzureNotificationHubRegistration(string token, string[] setOfTags, string nameOfTemplate, string templates)
         {
             var myHttpClient = new HttpClient();
-            //          string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-            //          string MyApiURLTemplate = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetTemplateRegistrationWithTags/{0}", deviceTokenString);
+            //string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
+            //string specificAPINotificationRegistration_TemplateAndroid = "/api/GetTemplateAndroidRegistrationWithTags/";
+            //string MyApiURLTemplate_1 = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_TemplateAndroid, token);
 
-            string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
-            string specificAPINotificationRegistration_TemplateAndroid = "/api/GetTemplateAndroidRegistrationWithTags/";
-            string MyApiURLTemplate_1 = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_TemplateAndroid, token);
+            string MyApiURLTemplate_1_Username = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_TemplateAndroidUsername, token);
 
             var _deviceRegistration = new DeviceRegistrationWithTemplate()
             {
@@ -218,10 +221,11 @@ namespace pushsample.Droid.Services
             var serializedDeviceRegistration = JsonConvert.SerializeObject(_deviceRegistration);
             var httpContent = new StringContent(serializedDeviceRegistration, Encoding.UTF8, "application/json");
 
+
             var httpRequest = new HttpRequestMessage
             {
                 Method = new HttpMethod("POST"),
-                RequestUri = new Uri(MyApiURLTemplate_1),
+                RequestUri = new Uri(MyApiURLTemplate_1_Username),
                 Content = httpContent
             };
 

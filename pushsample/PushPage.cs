@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
-using AzureConstants;
+using AndroidAzureConstants;
 using Xamarin.Forms;
 
 namespace pushsample

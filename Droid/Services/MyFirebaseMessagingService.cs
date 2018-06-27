@@ -59,7 +59,7 @@ namespace pushsample.Droid.Services
             }
 
             var notificationBuilder = new NotificationCompat.Builder(this, NotificationChannelIdentifier)
-            .SetSmallIcon(Resource.Drawable.ic_launcher)
+            .SetSmallIcon(Resource.Drawable.ic_stat_ic_notification)
             .SetContentTitle("New Notification Message")
             .SetContentText(messageBody)
             .SetContentIntent(pendingIntent)
