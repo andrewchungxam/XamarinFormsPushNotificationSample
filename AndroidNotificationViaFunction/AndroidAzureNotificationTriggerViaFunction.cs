@@ -10,6 +10,7 @@ using Microsoft.Azure.WebJobs.Host;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System;
+using Newtonsoft.Json;
 
 namespace AndroidNotificationViaFunction
 {
@@ -39,8 +40,8 @@ namespace AndroidNotificationViaFunction
             {
                 NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                     (
-                        AndroidAzureConstants.AzureConstants.AndroidConsoleFullAccessConnectionString,
-                        AndroidAzureConstants.AzureConstants.AndroidConsoleApplicationNotificationHubName,
+                        AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleFullAccessConnectionString,
+                        AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleApplicationNotificationHubName,
                         true
                     );
                 // Create an array of breaking news categories.
@@ -97,8 +98,8 @@ namespace AndroidNotificationViaFunction
             {
                 NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                     (
-                        AndroidAzureConstants.AzureConstants.AndroidConsoleFullAccessConnectionString,
-                        AndroidAzureConstants.AzureConstants.AndroidConsoleApplicationNotificationHubName,
+                        AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleFullAccessConnectionString,
+                        AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleApplicationNotificationHubName,
                         true
                     );
                 // Create an array of breaking news categories.
@@ -140,8 +141,8 @@ namespace AndroidNotificationViaFunction
             {
                 NotificationHubClient hubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
                     (
-                        AndroidAzureConstants.AzureConstants.AndroidConsoleFullAccessConnectionString,
-                        AndroidAzureConstants.AzureConstants.AndroidConsoleApplicationNotificationHubName,
+                        AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleFullAccessConnectionString,
+                        AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleApplicationNotificationHubName,
                         true
                     );
                 // Create an array of breaking news categories.

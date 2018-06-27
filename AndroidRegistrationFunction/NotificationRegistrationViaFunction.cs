@@ -17,6 +17,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.NotificationHubs;
 using Microsoft.Azure.NotificationHubs.Messaging;
 
+using AzureConstants;
+
 namespace AndroidRegistrationFunction
 {
     public static class NotificationRegistrationViaFunction
@@ -44,8 +46,8 @@ namespace AndroidRegistrationFunction
 
         private static NotificationHubClient _notificationHubClient = Microsoft.Azure.NotificationHubs.NotificationHubClient.CreateClientFromConnectionString
         (
-            AndroidAzureConstants.AzureConstants.AndroidConsoleFullAccessConnectionString,
-            AndroidAzureConstants.AzureConstants.AndroidConsoleApplicationNotificationHubName,
+            AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleFullAccessConnectionString,
+            AndroidAzureConstants.AndroidAzureConstants.AndroidConsoleApplicationNotificationHubName,
             true
         );
 
