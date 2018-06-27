@@ -8,13 +8,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pushsample.iOS", "iOS\pushs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pushsample.Droid", "Droid\pushsample.Droid.csproj", "{277448BF-446F-4FCF-81F1-6FA847C800DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidConsoleTriggerNotifications", "AndroidConsoleTriggerNotifications\AndroidConsoleTriggerNotifications.csproj", "{BB92625E-75FA-40E2-B812-D56E6246C62B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidConsoleTriggerNotifications", "AndroidConsoleTriggerNotifications\AndroidConsoleTriggerNotifications.csproj", "{BB92625E-75FA-40E2-B812-D56E6246C62B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidNotificationViaFunction", "AndroidNotificationViaFunction\AndroidNotificationViaFunction.csproj", "{926E3CC2-9CF9-4FBD-8E8B-97E896F7C3E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidNotificationViaFunction", "AndroidNotificationViaFunction\AndroidNotificationViaFunction.csproj", "{926E3CC2-9CF9-4FBD-8E8B-97E896F7C3E4}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AndroidAzureConstants", "AndroidAzureConstants\AndroidAzureConstants.shproj", "{6121B0F3-2982-465C-AFA2-32A2E560DE4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidRegistrationFunction", "AndroidRegistrationFunction\AndroidRegistrationFunction.csproj", "{97DE0AA7-5F88-4B77-9459-B718E24CB450}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidRegistrationFunction", "AndroidRegistrationFunction\AndroidRegistrationFunction.csproj", "{97DE0AA7-5F88-4B77-9459-B718E24CB450}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AndroidSharedClasses", "AndroidSharedClasses\AndroidSharedClasses.shproj", "{E4A72E1B-9CA9-473A-8F8E-C81377195631}"
 EndProject
