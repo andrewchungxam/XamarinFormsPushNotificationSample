@@ -11,7 +11,7 @@ namespace AndroidConsoleTriggerNotifications
         public static void Main(string[] args)
         {
 
-            //SendTemplateNotificationAsyncNativeAndroid();  //(native registration only)
+            //SendNativeNotificationAsyncNativeAndroid();  //(native registration only)
             //SendTemplateNotificationAsync(); //(Template registration only)
             SendTemplateNotificationMultipleAsync(); //Tempalte registration only)
 
@@ -19,7 +19,7 @@ namespace AndroidConsoleTriggerNotifications
             Console.WriteLine("Hello World!");
         }
 
-        private static async void SendTemplateNotificationAsyncNativeAndroid()
+        private static async void SendNativeNotificationAsyncNativeAndroid()
         {
             //
             //THIS WILL ONLY WORK IF IN YOUR ANDROID APPLICATION - YOU USE A NATIVE REGISTRATION
