@@ -14,10 +14,10 @@ using System.Text;
 
 namespace pushsample.Droid.Services
 {
-        [Service]
-        [IntentFilter(new[] { "com.google.firebase.INSTANCE_ID_EVENT" })]
-        public class MyFirebaseIIDService : FirebaseInstanceIdService
-        {
+    [Service]
+    [IntentFilter(new[] { "com.google.firebase.INSTANCE_ID_EVENT" })]
+    public class MyFirebaseIIDService : FirebaseInstanceIdService
+    {
 
         const string TAG = "MyFirebaseIIDService";
         NotificationHub hub;
@@ -40,16 +40,19 @@ namespace pushsample.Droid.Services
 
         void SendNativeRegistrationToServer(string token)
         {
-        // Register with Notification Hubs
-        hub = new NotificationHub(App.NotificationHubName,
-                                      App.ConnectionString, this);
+            // Register with Notification Hubs
+            hub = new NotificationHub(App.NotificationHubName,
+                                          App.ConnectionString, this);
 
-        //var tags = new List<string>() { };
-        var tags = new List<string>() { "World", "Politics", "Business", "Technology", "Science", "Sports"};
-        var regID = hub.Register(token, tags.ToArray()).RegistrationId;
+            //var tags = new List<string>() { };
+            var tags = new List<string>() { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
-        Log.Debug(TAG, $"Successful registration of ID {regID}");
-        Console.WriteLine(TAG, $"Successful registration of ID {regID}");
+
+
+            var regID = hub.Register(token, tags.ToArray()).RegistrationId;
+
+            Log.Debug(TAG, $"Successful registration of ID {regID}");
+            Console.WriteLine(TAG, $"Successful registration of ID {regID}");
         }
 
         void SendTemplateRegistrationToServer(string token)
@@ -59,6 +62,8 @@ namespace pushsample.Droid.Services
 
             //var tags = new List<string>() { };
             var tags = new List<string>() { "World" };
+
+
 
             String templateBodyGCM = "{\"data\":{\"message\":\"$(messageParam)\"}}";
 
@@ -76,6 +81,9 @@ namespace pushsample.Droid.Services
             //var tags = new List<string>() { };
             var tags = new List<string>() { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
+
+
+
             String templateBodyGCM = "{\"data\":{\"message\":\"$(messageParam)\"}}";
 
             var regID = hub.RegisterTemplate(token, "SimpleGCMTemplate", templateBodyGCM, tags.ToArray()).RegistrationId;
@@ -84,7 +92,7 @@ namespace pushsample.Droid.Services
             Console.WriteLine(TAG, $"Successful registration of ID {regID}");
         }
 
-///////////////////////// 
+        ///////////////////////// 
         /// 
         public class DeviceRegistration
         {
@@ -123,7 +131,7 @@ namespace pushsample.Droid.Services
             //string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
             string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
             string specificAPINotificationRegistration_NativeAndroid = "/api/GetNativeAndroidRegistrationIdPassingHandle/";
-            string MyApiURL = String.Format("{0}{1}{2}",  baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_NativeAndroid, token);
+            string MyApiURL = String.Format("{0}{1}{2}", baseNotificationRegistrationURL_Android, specificAPINotificationRegistration_NativeAndroid, token);
 
             //NativeAndroidRegistrationWithTags: http://localhost:7071/api/GetNativeAndroidRegistrationIdPassingHandle/{handleString}
             //TemplateAzureRegistrationWithTags: http://localhost:7071/api/GetTemplateAndroidRegistrationWithTags/{handleString}
@@ -190,8 +198,8 @@ namespace pushsample.Droid.Services
              TemplateRegisterWithAzureNotificationHubRegistration(string token, string[] setOfTags, string nameOfTemplate, string templates)
         {
             var myHttpClient = new HttpClient();
-//          string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
-//          string MyApiURLTemplate = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetTemplateRegistrationWithTags/{0}", deviceTokenString);
+            //          string deviceTokenString = deviceToken.Description.Replace("<", "").Replace(">", "").Replace(" ", "");
+            //          string MyApiURLTemplate = String.Format("https://notificationregistrationviafunctionstwo.azurewebsites.net/api/GetTemplateRegistrationWithTags/{0}", deviceTokenString);
 
             string baseNotificationRegistrationURL_Android = "https://xfnotificationfunctions4.azurewebsites.net";
             string specificAPINotificationRegistration_TemplateAndroid = "/api/GetTemplateAndroidRegistrationWithTags/";
