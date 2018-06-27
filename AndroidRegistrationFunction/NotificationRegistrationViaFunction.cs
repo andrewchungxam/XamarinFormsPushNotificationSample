@@ -170,8 +170,8 @@ namespace AndroidRegistrationFunction
             try
             {
 
-                //await _notificationHubClient.CreateGcmTemplateRegistrationAsync(newRegistrationId, deviceRegistrationObjectWithTemplate.jsonBodyTemplates, deviceRegistrationObjectWithTemplate.Tags);
-                var regID = _notificationHubClient.CreateGcmTemplateRegistrationAsync(deviceRegistrationObjectWithTemplate.Handle, deviceRegistrationObjectWithTemplate.jsonBodyTemplates, deviceRegistrationObjectWithTemplate.Tags).Result.RegistrationId;
+                //var regID = _notificationHubClient.CreateGcmTemplateRegistrationAsync(deviceRegistrationObjectWithTemplate.Handle, deviceRegistrationObjectWithTemplate.jsonBodyTemplates, deviceRegistrationObjectWithTemplate.Tags).Result.RegistrationId;
+                var regID = _notificationHubClient.CreateGcmTemplateRegistrationAsync(deviceRegistrationObjectWithTemplate.Handle, deviceRegistrationObjectWithTemplate.jsonBodyTemplates, stringTags).Result.RegistrationId;
 
                 Console.WriteLine($"Successful registration of ID: {regID}");
 
