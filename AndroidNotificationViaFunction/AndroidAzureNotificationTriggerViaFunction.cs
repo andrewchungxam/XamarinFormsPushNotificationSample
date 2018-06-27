@@ -33,7 +33,7 @@ namespace AndroidNotificationViaFunction
         {
 
             //
-            //THIS WILL ONLY WORK IF IN YOUR IOS APPLICATION - YOU USE A NATIVE REGISTRATION
+            //THIS WILL ONLY WORK IF IN YOUR ANDROID APPLICATION - YOU USE A NATIVE REGISTRATION
             //
 
             try
@@ -66,7 +66,7 @@ namespace AndroidNotificationViaFunction
 
                     string newJsonString = JsonConvert.SerializeObject(_rootObject);
 
-                    await hubClient.SendAppleNativeNotificationAsync(newJsonString, categories[i]);
+                    await hubClient.SendGcmNativeNotificationAsync(newJsonString, categories[i]);
 
                     //FOR FORMATS NOT REQUIRING MODIFIED MESSAGES IN YOUR ALERT
                     //string jsonString2 = String.Format("{\"aps\":{\"alert\":\"From your console - native registration\"}}");
