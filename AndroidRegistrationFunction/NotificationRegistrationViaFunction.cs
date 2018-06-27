@@ -112,9 +112,9 @@ namespace AndroidRegistrationFunction
             registration.RegistrationId = notificationHubRegistrationId;
 
             //ADD CHECK IF USER IS ALLOWED TO USE THESE TAGS
-            registration.Tags = new HashSet<string>(deviceUpdate.Tags);
-            var androidNativeUsername = "AndroidFriendlyUser101";
-            registration.Tags.Add("username:" + androidNativeUsername);
+            //registration.Tags = new HashSet<string>(deviceUpdate.Tags);
+            //var androidNativeUsername = "AndroidFriendlyUser101";
+            //registration.Tags.Add("username:" + androidNativeUsername);
 
             try
             {
@@ -161,11 +161,11 @@ namespace AndroidRegistrationFunction
             //if (newRegistrationId == null)
             //    newRegistrationId = await _notificationHubClient.CreateRegistrationIdAsync();
 
-            var stringTags = deviceRegistrationObjectWithTemplate.Tags;
 
-            Array.Resize(ref stringTags, stringTags.Length + 1);
-            var AndroidTemplateUsername = "AndroidTemplateUser101";
-            stringTags[stringTags.Length - 1] = "username:" + AndroidTemplateUsername;
+            //var stringTags = deviceRegistrationObjectWithTemplate.Tags;
+            //Array.Resize(ref stringTags, stringTags.Length + 1);
+            //var AndroidTemplateUsername = "AndroidTemplateUser101";
+            //stringTags[stringTags.Length - 1] = "username:" + AndroidTemplateUsername;
 
             try
             {

@@ -47,9 +47,9 @@ namespace AndroidNotificationViaFunction
                 // Create an array of breaking news categories.
                 var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
-                Array.Resize(ref categories, categories.Length + 1);
-                var nativeUsername = "AndroidNativeUser101";
-                categories[categories.Length - 1] = "username:" + nativeUsername;
+                //Array.Resize(ref categories, categories.Length + 1);
+                //var nativeUsername = "AndroidNativeUser101";
+                //categories[categories.Length - 1] = "username:" + nativeUsername;
 
                 for (int i = 0; i < categories.Length; i++)
                 {
@@ -105,9 +105,9 @@ namespace AndroidNotificationViaFunction
                 // Create an array of breaking news categories.
                 var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
-                Array.Resize(ref categories, categories.Length + 1);
-                var nativeUsername = "AndroidTemplateUser101";
-                categories[categories.Length - 1] = "username:" + nativeUsername;
+                //Array.Resize(ref categories, categories.Length + 1);
+                //var nativeUsername = "AndroidTemplateUser101";
+                //categories[categories.Length - 1] = "username:" + nativeUsername;
 
                 Dictionary<string, string> templateParams = new Dictionary<string, string>();
                 //{
@@ -148,9 +148,9 @@ namespace AndroidNotificationViaFunction
                 // Create an array of breaking news categories.
                 var categories = new string[] { "World", "Politics", "Business", "Technology", "Science", "Sports" };
 
-                Array.Resize(ref categories, categories.Length + 1);
-                var nativeUsername = "AndroidTemplateUser101";
-                categories[categories.Length - 1] = "username:" + nativeUsername;
+                //Array.Resize(ref categories, categories.Length + 1);
+                //var nativeUsername = "AndroidTemplateUser101";
+                //categories[categories.Length - 1] = "username:" + nativeUsername;
 
                 Dictionary<string, string> templateParams = new Dictionary<string, string>();
 
