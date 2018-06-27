@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Text;
-using AndroidAzureConstants;
 using Xamarin.Forms;
 
 namespace pushsample
@@ -11,13 +9,8 @@ namespace pushsample
     {
 
         Label lblMsg;
-        Button btnSend_Native;
-        Button btnSend_Template;
-        Button btnSend_MultipleTemplate;
-
+        Button btnSend;
         Entry txtMsg;
-
-        private static HttpClient _httpClient = new HttpClient() { };
 
         public PushPage()
         {
@@ -51,28 +44,10 @@ namespace pushsample
                 WidthRequest = 150
             };
 
-            btnSend_Native = new Button()
+            btnSend = new Button()
             {
                 WidthRequest = 100,
-                Text = "Native",
-                BackgroundColor = Color.Blue,
-                TextColor = Color.White
-            };
-
-
-            btnSend_Template = new Button()
-            {
-                WidthRequest = 100,
-                Text = "Template",
-                BackgroundColor = Color.Blue,
-                TextColor = Color.White
-            };
-
-
-            btnSend_MultipleTemplate = new Button()
-            {
-                WidthRequest = 100,
-                Text = "MultiTemplate",
+                Text = "Send",
                 BackgroundColor = Color.Blue,
                 TextColor = Color.White
             };
@@ -80,8 +55,7 @@ namespace pushsample
             var stackLayoutBottom = new StackLayout()
             {
                 Orientation = StackOrientation.Horizontal,
-                //Children = { sendLabel, txtMsg, btnSend}
-                Children = { sendLabel, btnSend_Native, btnSend_Template, btnSend_MultipleTemplate }
+                Children = { sendLabel, txtMsg, btnSend }
             };
 
             Content = new StackLayout
@@ -90,8 +64,8 @@ namespace pushsample
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    stackLayoutTop,
-                    stackLayoutBottom
+                    stackLayoutTop//,
+                    //stackLayoutBottom
                 }
             };
 
@@ -102,9 +76,7 @@ namespace pushsample
             base.OnAppearing();
 
             MessagingCenter.Subscribe<object, string>(this, App.NotificationReceivedKey, OnMessageReceived);
-            btnSend_Native.Clicked += OnBtnSendClicked_Native;
-            btnSend_Template.Clicked += OnBtnSendClicked_Template;
-            btnSend_MultipleTemplate.Clicked += OnBtnSendClicked_MultipleTemplate;
+            btnSend.Clicked += OnBtnSendClicked;
         }
 
         protected override void OnDisappearing()
@@ -122,54 +94,22 @@ namespace pushsample
             });
         }
 
-
-        async void OnBtnSendClicked_Native(object sender, EventArgs e)
+        async void OnBtnSendClicked(object sender, EventArgs e)
         {
-            Debug.WriteLine($"Sending message notification MultipleTemplate to URI {AzureNotificationsViaFunctionsURLS.AndroidNativeApiURL}");
+            Debug.WriteLine($"Sending message: " + txtMsg.Text);
 
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = new HttpMethod("POST"),
-                RequestUri = new Uri(AzureNotificationsViaFunctionsURLS.AndroidNativeApiURL),
-            };
-
-            var result = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
-
-            Debug.WriteLine("Send result: " + result.IsSuccessStatusCode);
+            //This will be for the sending and triggering of notifications
+            //var content = new StringContent("\"" + txtMsg.Text + "\"", Encoding.UTF8, "application/json");
+            //var result = await _client.PostAsync("xamunotifications", content);
+            //Debug.WriteLine("Send result: " + result.IsSuccessStatusCode);
         }
 
 
-        async void OnBtnSendClicked_Template(object sender, EventArgs e)
-        {
-            Debug.WriteLine($"Sending message notification MultipleTemplate to URI {AzureNotificationsViaFunctionsURLS.AndroidTemplateApiURL}");
-
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = new HttpMethod("POST"),
-                RequestUri = new Uri(AzureNotificationsViaFunctionsURLS.AndroidTemplateApiURL),
-            };
-
-            var result = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
-
-            Debug.WriteLine("Send result: " + result.IsSuccessStatusCode);
-        }
-
-        async void OnBtnSendClicked_MultipleTemplate(object sender, EventArgs e)
-        {
-            Debug.WriteLine($"Sending message notification MultipleTemplate to URI {AzureNotificationsViaFunctionsURLS.AndroidMultipleTemplateApiURL}");
-
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = new HttpMethod("POST"),
-                RequestUri = new Uri(AzureNotificationsViaFunctionsURLS.AndroidMultipleTemplateApiURL),
-            };
-
-            var result = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
-
-            Debug.WriteLine("Send result: " + result.IsSuccessStatusCode);
-        }
 
 
     }
+
+
+
 }
 
