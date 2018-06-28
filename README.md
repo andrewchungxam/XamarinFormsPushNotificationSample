@@ -14,8 +14,7 @@ Notes:<br ><br >
 - If you have issues building when you switch branches - try do a BUILD > CLEAN ALL in Visual Studio and retrying the build
 - If you want to re-trigger a registration - you have to DELETE your app from your phone first.  A rebuild alone is not sufficient<br ><br >
 
-iOS only:
-Branches were made and kept for checkpoints in project:<br ><br >
+iOS<br ><br >
 Branch 1 - Xamarin Forms apps (iOS only + receiving push notifications from "Pusher app") <br ><br >
 Branch 2 - Branch 1 + registered with Azure Notification Hub directly + receiving test Push Notications from the Azure portal) <br ><br >
 Branch 3 - Branch 2 + Ability to create specialized Notification Tags ("Similar to topic subscriptions") + Console Application to trigger Notifications <br ><br >
