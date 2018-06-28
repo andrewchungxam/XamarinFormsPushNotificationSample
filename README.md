@@ -28,7 +28,7 @@ Branch 8 - Branch 7 + Android + Native Notifications + Azure Notification Hub Te
 Branch 9 - Branch 8 + Android + Template Notifications + Console Send<br ><br > 
 Branch 10 - Branch 9 + Android + Triggering notifications via Functions + Postman (Or Console from previous project)<br ><br > 
 Branch 11 - Branch 10 + Android + Use Functions to register devices <br ><br >
-Branch 12 - Branch 11 + Android + Use Functions to registering a username tag + trigger a notification to Usernme via Function or Console application )<br ><br >  
+Branch 12 - Branch 11 + Android + Use Functions to registering a username tag + trigger a notification to Usernme via Function or Console application )<br ><br >
 Branch 14 - Branch 12 + Android + Use buttons on Forms app to trigger notification<br ><br >  
 <br >
 <br >
