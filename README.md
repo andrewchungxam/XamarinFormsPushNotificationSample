@@ -1,7 +1,7 @@
 # XamarinFormsPushNotificationSample
-This sample is a prograssion based on the Git branches.  You can switch Branches using the GitHub desktop client or Command line. <br ><br >
-You can find the PDFs in the Master Branch.<br ><br >
+This sample is a progression based on the Git branches.  You can switch Branches using the GitHub desktop client or Command line. <br ><br >
 You should looking at the code starting from Branch 01<br ><br >
+You can find the PDFs in the Master Branch.<br ><br >
 <br ><br >
 This is a sample that simplifies the usage of Azure Notifications and Xamarin.Forms (iOS).  <br ><br >
 There are PDFs that will help with gettings started.  Triggering the Notification will be through the Azure portal + a program called "Pusher" + and later on a Console application + trigger it via Azure Functions.  Note when you use Azure Functions - you can either run the program locally from Visual Studio and then trigger the function via Postman (pointing at the local endpoint) or publish the application and then via Postman (pointing at the Azure endpoint).<br ><br >
